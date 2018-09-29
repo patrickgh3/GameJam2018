@@ -1,6 +1,6 @@
 fileFormatVersion: 2
 guid: e32d6a97378708640a10a2b9ce452651
-timeCreated: 1538253593
+timeCreated: 1538260568
 licenseType: Free
 TextureImporter:
   fileIDToRecycleName:
@@ -124,7 +124,7 @@ TextureImporter:
       name: Symbols_1
       rect:
         serializedVersion: 2
-        x: 398
+        x: 395
         y: 476
         width: 363
         height: 321
@@ -138,10 +138,10 @@ TextureImporter:
       name: Symbols_2
       rect:
         serializedVersion: 2
-        x: 789
-        y: 499
-        width: 375
-        height: 299
+        x: 797
+        y: 531
+        width: 356
+        height: 269
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -152,8 +152,8 @@ TextureImporter:
       name: Symbols_3
       rect:
         serializedVersion: 2
-        x: 1169
-        y: 525
+        x: 1180
+        y: 517
         width: 267
         height: 252
       alignment: 9

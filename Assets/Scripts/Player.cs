@@ -8,7 +8,10 @@ public class Player : MonoBehaviour {
     private float timeOutOfLine = 0;
     private const float timeUntilCaught = 1f;
 
-	void Start() {
+    [SerializeField] private AnimationClip idleAnim;
+    [SerializeField] private AnimationClip walkAnim;
+
+    void Start() {
 		
 	}
 	
@@ -16,8 +19,19 @@ public class Player : MonoBehaviour {
         if (frozen) return;
 
         float moveSpeed = 300f * Time.deltaTime;
-        Vector3 toMove = new Vector3(Input.GetAxisRaw("Horizontal") * moveSpeed, Input.GetAxisRaw("Vertical") * moveSpeed);
+        float horiz = Input.GetAxisRaw("Horizontal");
+        float vert = Input.GetAxisRaw("Vertical");
+        Vector3 toMove = new Vector3(horiz * moveSpeed, vert * moveSpeed);
         Move(gameObject, toMove);
+
+        if (horiz == 0 && vert == 0) {
+            GetComponent<Animator>().Play("Idle");
+            GetComponent<SpriteRenderer>().flipX = false;
+        }
+        else {
+            GetComponent<Animator>().Play("WalkRight");
+            GetComponent<SpriteRenderer>().flipX = (horiz < 0);
+        }
 
         if (Input.GetButtonDown("Speak1")) {
             GetComponentInChildren<Speech>().Speak(0);

@@ -14,8 +14,8 @@ public class NPC : MonoBehaviour {
 	// Update is called once per frame
 	void Update () {
 		if (!testSpoken && Mathf.Floor(Time.time) % 5 == 2) {
-            GetComponent<Speech>().Speak(0);
             testSpoken = true;
+            GetComponentInChildren<Speech>().Speak(0);
         }
 	}
 }

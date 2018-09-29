@@ -1,14 +1,19 @@
 fileFormatVersion: 2
-guid: 241c4dc1fdc8fd040843ae98e9cb0def
-timeCreated: 1538260500
+guid: af17ec648b01a6042800a7980779dc1f
+timeCreated: 1538260618
 licenseType: Free
 TextureImporter:
   fileIDToRecycleName:
-    21300000: PlayerIdle_0
-    21300002: PlayerIdle_1
-    21300004: PlayerIdle_2
-    21300006: PlayerIdle_3
-    21300008: PlayerIdle_4
+    21300000: GateAnimation_0
+    21300002: GateAnimation_1
+    21300004: GateAnimation_2
+    21300006: GateAnimation_3
+    21300008: GateAnimation_4
+    21300010: GateAnimation_5
+    21300012: GateAnimation_6
+    21300014: GateAnimation_7
+    21300016: GateAnimation_8
+    21300018: GateAnimation_9
   externalObjects: {}
   serializedVersion: 4
   mipmaps:
@@ -101,71 +106,141 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: PlayerIdle_0
+      name: GateAnimation_0
       rect:
         serializedVersion: 2
         x: 0
-        y: 0
-        width: 130
-        height: 250
-      alignment: 9
-      pivot: {x: 0.5, y: 0.15}
+        y: 20
+        width: 334
+        height: 224
+      alignment: 0
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
     - serializedVersion: 2
-      name: PlayerIdle_1
+      name: GateAnimation_1
       rect:
         serializedVersion: 2
-        x: 130
-        y: 0
-        width: 130
-        height: 250
-      alignment: 9
-      pivot: {x: 0.5, y: 0.15}
+        x: 334
+        y: 20
+        width: 334
+        height: 224
+      alignment: 0
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
     - serializedVersion: 2
-      name: PlayerIdle_2
+      name: GateAnimation_2
       rect:
         serializedVersion: 2
-        x: 260
-        y: 0
-        width: 130
-        height: 250
-      alignment: 9
-      pivot: {x: 0.5, y: 0.15}
+        x: 668
+        y: 20
+        width: 334
+        height: 224
+      alignment: 0
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
     - serializedVersion: 2
-      name: PlayerIdle_3
+      name: GateAnimation_3
       rect:
         serializedVersion: 2
-        x: 390
-        y: 0
-        width: 130
-        height: 250
-      alignment: 9
-      pivot: {x: 0.5, y: 0.15}
+        x: 1002
+        y: 20
+        width: 334
+        height: 224
+      alignment: 0
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
     - serializedVersion: 2
-      name: PlayerIdle_4
+      name: GateAnimation_4
       rect:
         serializedVersion: 2
-        x: 520
-        y: 0
-        width: 130
-        height: 250
-      alignment: 9
-      pivot: {x: 0.5, y: 0.15}
+        x: 1336
+        y: 20
+        width: 334
+        height: 224
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: GateAnimation_5
+      rect:
+        serializedVersion: 2
+        x: 1670
+        y: 20
+        width: 334
+        height: 224
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: GateAnimation_6
+      rect:
+        serializedVersion: 2
+        x: 2004
+        y: 20
+        width: 334
+        height: 224
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: GateAnimation_7
+      rect:
+        serializedVersion: 2
+        x: 2338
+        y: 20
+        width: 334
+        height: 224
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: GateAnimation_8
+      rect:
+        serializedVersion: 2
+        x: 2672
+        y: 20
+        width: 334
+        height: 224
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: GateAnimation_9
+      rect:
+        serializedVersion: 2
+        x: 3006
+        y: 20
+        width: 334
+        height: 224
+      alignment: 0
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []

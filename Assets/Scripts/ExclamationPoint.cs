@@ -9,6 +9,7 @@ public class ExclamationPoint : MonoBehaviour {
 
     private void Start() {
         sprite = GetComponent<SpriteRenderer>();
+        sprite.enabled = false;
     }
 
     public void SetStatus(bool enabled, float fill) {
