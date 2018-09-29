@@ -4,7 +4,10 @@ using UnityEngine;
 
 public class NPC : MonoBehaviour {
 
-
+    SpeechPad currentSpeechPad;
+    int speechChoice = 0;
+    bool spokeLastTurn = false;
+    bool speakNextTurn = false;
     bool testSpoken = false;
     //determines current direction for movement. Defined by directions enum
     public int direction = (int)Directions.RIGHT;
@@ -13,6 +16,8 @@ public class NPC : MonoBehaviour {
     public float moveTimer;
     //when timer reaches this Threshhold, the NPC will move
     public float moveThreshold;
+    //actions will be performed this many seconds before next move
+    public float actionCheckTime;
     public float moveSpeed;
     public float spriteSize;
     public Vector3 moveLocation;
@@ -69,22 +74,48 @@ public class NPC : MonoBehaviour {
     void move(Vector2 delta)
     {
 
-        Vector2 perpendicular = (Quaternion.Euler(0, 0, 90) * directions[direction]) * spriteSize;
-        Vector2 parallel = directions[direction] * spriteSize;
-        if (Physics2D.Raycast(transform.position + new Vector3(parallel.x, parallel.y, transform.position.z), delta, moveAmount + spriteSize, LayerMask.GetMask(collisionLayers)).collider == null &&
-            Physics2D.Raycast(transform.position + new Vector3(parallel.x, parallel.y, transform.position.z) - (new Vector3(perpendicular.x, perpendicular.y, transform.position.z)), delta,
-                moveAmount + spriteSize, LayerMask.GetMask(collisionLayers)).collider == null &&
-            Physics2D.Raycast(transform.position + new Vector3(parallel.x, parallel.y, transform.position.z) - (new Vector3(perpendicular.x, perpendicular.y, transform.position.z)), delta,
-                moveAmount + spriteSize, LayerMask.GetMask(collisionLayers)).collider == null)
+        if (!speakNextTurn)
         {
-            blocked = 0;
-            Vector2 toMove = new Vector3(transform.position.x + delta.x, transform.position.y + delta.y, transform.position.z);
-            moveLocation = toMove;
+            spokeLastTurn = false;
+            Vector2 perpendicular = (Quaternion.Euler(0, 0, 90) * directions[direction]) * spriteSize;
+            Vector2 parallel = directions[direction] * spriteSize;
+            if (Physics2D.Raycast(transform.position + new Vector3(parallel.x, parallel.y, transform.position.z), delta, moveAmount + spriteSize, LayerMask.GetMask(collisionLayers)).collider == null &&
+                Physics2D.Raycast(transform.position + new Vector3(parallel.x, parallel.y, transform.position.z) - (new Vector3(perpendicular.x, perpendicular.y, transform.position.z)), delta,
+                    moveAmount + spriteSize, LayerMask.GetMask(collisionLayers)).collider == null &&
+                Physics2D.Raycast(transform.position + new Vector3(parallel.x, parallel.y, transform.position.z) - (new Vector3(perpendicular.x, perpendicular.y, transform.position.z)), delta,
+                    moveAmount + spriteSize, LayerMask.GetMask(collisionLayers)).collider == null)
+            {
+                blocked = 0;
+                Vector2 toMove = new Vector3(transform.position.x + delta.x, transform.position.y + delta.y, transform.position.z);
+                moveLocation = toMove;
+            }
+            else
+            {
+                blocked++;
+            }
         }
         else
         {
-            blocked++;
+            GetComponent<Speech>().Speak(speechChoice);
+            if(speechChoice == 0)
+            {
+                currentSpeechPad.Action0();
+            }
+            if (speechChoice == 1)
+            {
+                currentSpeechPad.Action1();
+            }
+            if (speechChoice == 2)
+            {
+                currentSpeechPad.Action2();
+            }
+            if (speechChoice == 3)
+            {
+                currentSpeechPad.Action3();
+            }
+            spokeLastTurn = true;
         }
+        speakNextTurn = false;
     }
 
     void checkDirection()
@@ -96,10 +127,21 @@ public class NPC : MonoBehaviour {
         {
             direction = pathCollision.GetComponent<NPCPath>().direction;
         }
+        string[] actionLayers = { "Interactable" };
+        Collider2D actionCollision = Physics2D.OverlapBox(transform.position, size, 0, LayerMask.GetMask(actionLayers));
+        if (actionCollision && !spokeLastTurn)
+        {
+            Debug.Log("CollidedAction");
+            speakNextTurn = true;
+            int[] validActions = actionCollision.GetComponent<SpeechPad>().validActions;
+            speechChoice = validActions[(int)Random.Range(0, validActions.Length)];
+            currentSpeechPad = actionCollision.GetComponent<SpeechPad>();
+        }
         string[] despawnLayers = { "Goal" };
         Collider2D goalCollision = Physics2D.OverlapBox(transform.position, size, 0, LayerMask.GetMask(despawnLayers));
         if (goalCollision)
         {
+            goalCollision.gameObject.GetComponent<Goal>().isOpen = false;
             Destroy(this.gameObject);
         }
     }
