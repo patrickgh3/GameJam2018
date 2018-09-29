@@ -11,28 +11,38 @@ public class Player : MonoBehaviour {
 	void FixedUpdate() {
         float moveSpeed = 300f * Time.deltaTime;
         Vector3 toMove = new Vector3(Input.GetAxisRaw("Horizontal") * moveSpeed, Input.GetAxisRaw("Vertical") * moveSpeed);
-        toMove = new Vector3(Mathf.Round(toMove.x), Mathf.Round(toMove.y));
+        Move(gameObject, toMove);
+    }
 
-        transform.position += toMove;
+    // Moves the Player or an NPC while colliding with walls and NPCs.
+    public static void Move(GameObject obj, Vector2 delta) {
+        Vector3 toMove = toMove = new Vector3(Mathf.Round(delta.x), Mathf.Round(delta.y));
 
-        Vector2 size = new Vector2(100, 100);
-        int wallsLayer = 1 << 9;
+        obj.transform.position += toMove;
 
-        if (Physics2D.OverlapBox(transform.position, size, 0, wallsLayer)) {
-            transform.position -= toMove;
+        Vector2 size = obj.GetComponent<BoxCollider2D>().size * obj.transform.lossyScale.x;
+        int collisionLayers = (1 << 9) | (1 << 10);
 
-            for (int i = 0; i < Mathf.Abs(toMove.x); i++) {
-                transform.position += new Vector3(Mathf.Sign(toMove.x), 0);
-                if (Physics2D.OverlapBox(transform.position, size, 0, wallsLayer)) {
-                    transform.position -= new Vector3(Mathf.Sign(toMove.x), 0);
+        if (Physics2D.OverlapBox(obj.transform.position, size, 0, collisionLayers))
+        {
+            obj.transform.position -= toMove;
+
+            for (int i = 0; i < Mathf.Abs(toMove.x); i++)
+            {
+                obj.transform.position += new Vector3(Mathf.Sign(toMove.x), 0);
+                if (Physics2D.OverlapBox(obj.transform.position, size, 0, collisionLayers))
+                {
+                    obj.transform.position -= new Vector3(Mathf.Sign(toMove.x), 0);
                     break;
                 }
             }
 
-            for (int i = 0; i < Mathf.Abs(toMove.y); i++) {
-                transform.position += new Vector3(0, Mathf.Sign(toMove.y));
-                if (Physics2D.OverlapBox(transform.position, size, 0, wallsLayer)) {
-                    transform.position -= new Vector3(0, Mathf.Sign(toMove.y));
+            for (int i = 0; i < Mathf.Abs(toMove.y); i++)
+            {
+                obj.transform.position += new Vector3(0, Mathf.Sign(toMove.y));
+                if (Physics2D.OverlapBox(obj.transform.position, size, 0, collisionLayers))
+                {
+                    obj.transform.position -= new Vector3(0, Mathf.Sign(toMove.y));
                     break;
                 }
             }
