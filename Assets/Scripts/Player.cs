@@ -4,11 +4,20 @@ using UnityEngine;
 
 public class Player : MonoBehaviour {
 
+    private bool frozen = false;
+    private float timeOutOfLine = 0;
+    private const float timeUntilCaught = 1f;
+
+    [SerializeField] private SpriteRenderer exclamationPoint;
+    [SerializeField] private Sprite[] exclamationSprites;
+
 	void Start() {
 		
 	}
 	
 	void FixedUpdate() {
+        if (frozen) return;
+
         float moveSpeed = 300f * Time.deltaTime;
         Vector3 toMove = new Vector3(Input.GetAxisRaw("Horizontal") * moveSpeed, Input.GetAxisRaw("Vertical") * moveSpeed);
         Move(gameObject, toMove);
@@ -24,6 +33,23 @@ public class Player : MonoBehaviour {
         }
         if (Input.GetButtonDown("Speak4")) {
             GetComponent<Speech>().Speak(3);
+        }
+
+        Vector2 size = GetComponent<BoxCollider2D>().size * transform.lossyScale.x;
+        if (Physics2D.OverlapBox(transform.position, size, 0, LayerMask.GetMask(new string[] { "Death" }))) {
+            timeOutOfLine += Time.deltaTime;
+            if (timeOutOfLine > timeUntilCaught) {
+                frozen = true;
+                World.Instance.StartFade();
+            }
+
+            exclamationPoint.enabled = true;
+            int spriteIndex = (int)Mathf.Floor(timeOutOfLine / timeUntilCaught * (exclamationSprites.Length - 1));
+            exclamationPoint.sprite = exclamationSprites[spriteIndex];
+        }
+        else {
+            timeOutOfLine = 0;
+            exclamationPoint.enabled = false;
         }
     }
 
