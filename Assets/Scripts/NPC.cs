@@ -14,7 +14,8 @@ public class NPC : MonoBehaviour {
     public float moveSpeed;
     public float spriteSize;
     public Vector3 moveLocation;
-    private string[] collisionLayers = { "Player" };
+    private string[] collisionLayers = { "Player", "NPC"};
+    public int blocked = 0;
 
     // Use this for initialization
     void Start () {
@@ -62,14 +63,27 @@ public class NPC : MonoBehaviour {
     void move(Vector2 delta)
     {
 
-        Vector2 toMove = new Vector3(transform.position.x + delta.x, transform.position.y + delta.y, transform.position.z);
+        Vector2 perpendicular = (Quaternion.Euler(0, 0, 90) * directions[direction]) * spriteSize;
+        Vector2 parallel = directions[direction] * spriteSize;
+        if (Physics2D.Raycast(transform.position + new Vector3(parallel.x, parallel.y, transform.position.z), delta, moveAmount + spriteSize, LayerMask.GetMask(collisionLayers)).collider == null &&
+            Physics2D.Raycast(transform.position + new Vector3(parallel.x, parallel.y, transform.position.z) - (new Vector3(perpendicular.x, perpendicular.y, transform.position.z)), delta,
+                moveAmount + spriteSize, LayerMask.GetMask(collisionLayers)).collider == null &&
+            Physics2D.Raycast(transform.position + new Vector3(parallel.x, parallel.y, transform.position.z) - (new Vector3(perpendicular.x, perpendicular.y, transform.position.z)), delta,
+                moveAmount + spriteSize, LayerMask.GetMask(collisionLayers)).collider == null)
+        {
+            Vector2 toMove = new Vector3(transform.position.x + delta.x, transform.position.y + delta.y, transform.position.z);
             moveLocation = toMove;
+        }
+        else
+        {
+            blocked++;
+        }
     }
 
     void checkDirection()
     {
         Vector2 size = GetComponent<BoxCollider2D>().size * transform.lossyScale.x;
-        string[] pathLayers = { "Paths" };
+        string[] pathLayers = { "Path" };
         Collider2D pathCollision = Physics2D.OverlapBox(transform.position, size, 0, LayerMask.GetMask(pathLayers));
         if (pathCollision)
         {

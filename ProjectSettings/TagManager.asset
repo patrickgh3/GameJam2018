@@ -14,10 +14,10 @@ TagManager:
   - 
   - 
   - Player
-  - Walls
-  - NPCs
-  - Paths
-  - Interactables
+  - Wall
+  - NPC
+  - Path
+  - Interactable
   - 
   - 
   - 

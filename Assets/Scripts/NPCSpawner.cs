@@ -14,7 +14,7 @@ public class NPCSpawner : MonoBehaviour {
     public float spaceRequirement;
     public float spriteSize;
     public GameObject NPCPrefab;
-    private string[] collisionLayers = { "Player" };
+    private string[] collisionLayers = { "Player", "NPC" };
 
     // Use this for initialization
     void Start () {
