@@ -7,7 +7,7 @@ public class World : MonoBehaviour {
     [SerializeField] private Texture fullWhiteTexture;
 
     private float fadeTime = 0;
-    private const float fadeLength = 0.75f;
+    private const float fadeLength = 0.5f;
     private enum FadeState {
         Idle,
         ToBlack,
@@ -30,7 +30,7 @@ public class World : MonoBehaviour {
     private void Update() {
         if (fadeState == FadeState.ToBlack) {
             fadeTime += Time.deltaTime;
-            if (fadeTime > fadeLength * 1.2f) {
+            if (fadeTime > fadeLength * 1.5f) {
                 fadeState = FadeState.FromBlack;
                 SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
             }

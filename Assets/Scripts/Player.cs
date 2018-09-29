@@ -8,9 +8,6 @@ public class Player : MonoBehaviour {
     private float timeOutOfLine = 0;
     private const float timeUntilCaught = 1f;
 
-    [SerializeField] private SpriteRenderer exclamationPoint;
-    [SerializeField] private Sprite[] exclamationSprites;
-
 	void Start() {
 		
 	}
@@ -23,16 +20,16 @@ public class Player : MonoBehaviour {
         Move(gameObject, toMove);
 
         if (Input.GetButtonDown("Speak1")) {
-            GetComponent<Speech>().Speak(0);
+            GetComponentInChildren<Speech>().Speak(0);
         }
         if (Input.GetButtonDown("Speak2")) {
-            GetComponent<Speech>().Speak(1);
+            GetComponentInChildren<Speech>().Speak(1);
         }
         if (Input.GetButtonDown("Speak3")) {
-            GetComponent<Speech>().Speak(2);
+            GetComponentInChildren<Speech>().Speak(2);
         }
         if (Input.GetButtonDown("Speak4")) {
-            GetComponent<Speech>().Speak(3);
+            GetComponentInChildren<Speech>().Speak(3);
         }
 
         Vector2 size = GetComponent<BoxCollider2D>().size * transform.lossyScale.x;
@@ -43,13 +40,11 @@ public class Player : MonoBehaviour {
                 World.Instance.StartFade();
             }
 
-            exclamationPoint.enabled = true;
-            int spriteIndex = (int)Mathf.Floor(timeOutOfLine / timeUntilCaught * (exclamationSprites.Length - 1));
-            exclamationPoint.sprite = exclamationSprites[spriteIndex];
+            GetComponentInChildren<ExclamationPoint>().SetStatus(true, timeOutOfLine / timeUntilCaught);
         }
         else {
             timeOutOfLine = 0;
-            exclamationPoint.enabled = false;
+            GetComponentInChildren<ExclamationPoint>().SetStatus(false, 0);
         }
     }
 
