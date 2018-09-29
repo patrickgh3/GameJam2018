@@ -12,10 +12,12 @@ public class NPC : MonoBehaviour {
     //when timer reaches this Threshhold, the NPC will move
     public float moveThreshold;
     public float moveSpeed;
+    public float spriteSize;
     public Vector3 moveLocation;
+    private string[] collisionLayers = { "Player" };
 
-	// Use this for initialization
-	void Start () {
+    // Use this for initialization
+    void Start () {
         moveLocation = transform.position;
         populateDirections();
         moveTimer = Random.Range(0, moveThreshold / 2);
@@ -28,6 +30,10 @@ public class NPC : MonoBehaviour {
 
     void checkMovement()
     {
+        Vector2 perpendicular = (Quaternion.Euler(0, 0, 90) * directions[direction]) * spriteSize;
+        Debug.DrawRay(transform.position, directions[direction] * (moveAmount+50), Color.red);
+        Debug.DrawRay(transform.position - (new Vector3(perpendicular.x, perpendicular.y, transform.position.z)), directions[direction] * (moveAmount + 50), Color.red);
+        Debug.DrawRay(transform.position + (new Vector3(perpendicular.x, perpendicular.y, transform.position.z)), directions[direction] * (moveAmount + 50), Color.red);
         moveTimer += Time.deltaTime;
         if(moveTimer > moveThreshold)
         {
@@ -35,6 +41,12 @@ public class NPC : MonoBehaviour {
             move(moveAmount * directions[direction]);
         }
         transform.position = Vector3.MoveTowards(transform.position, moveLocation, Time.deltaTime * moveSpeed);
+        Vector2 size = GetComponent<BoxCollider2D>().size * transform.lossyScale.x;
+        Collider2D playerCollision = Physics2D.OverlapBox(transform.position, size, 0, LayerMask.GetMask(collisionLayers));
+        if (playerCollision)
+        {
+            Player.Move(playerCollision.gameObject, (playerCollision.transform.position - this.transform.position).normalized * 1f); 
+        }
     }
 
     void populateDirections()
@@ -51,8 +63,15 @@ public class NPC : MonoBehaviour {
 
     void move(Vector2 delta)
     {
-        Vector2 toMove = toMove = new Vector3(transform.position.x + delta.x, transform.position.y + delta.y, transform.position.z);
-
-        moveLocation = toMove;
+        Vector2 perpendicular = (Quaternion.Euler(0, 0, 90) * directions[direction]) * spriteSize;
+        if (Physics2D.Raycast(transform.position, delta, moveAmount + spriteSize, LayerMask.GetMask(collisionLayers)).collider == null &&
+            Physics2D.Raycast(transform.position - (new Vector3(perpendicular.x, perpendicular.y, transform.position.z)), delta, 
+                moveAmount + spriteSize, LayerMask.GetMask(collisionLayers)).collider == null &&
+            Physics2D.Raycast(transform.position - (new Vector3(perpendicular.x, perpendicular.y, transform.position.z)), delta, 
+                moveAmount + spriteSize, LayerMask.GetMask(collisionLayers)).collider == null)
+        {
+            Vector2 toMove = toMove = new Vector3(transform.position.x + delta.x, transform.position.y + delta.y, transform.position.z);
+            moveLocation = toMove;
+        }
     }
 }

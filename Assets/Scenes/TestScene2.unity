@@ -246,8 +246,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   moveAmount: 40
   moveTimer: 0
-  moveThreshold: 8
+  moveThreshold: 2
   moveSpeed: 30
+  spriteSize: 40
   moveLocation: {x: 0, y: 0, z: 0}
 --- !u!1 &820378554
 GameObject:
