@@ -12,11 +12,24 @@ public class Player : MonoBehaviour {
         float moveSpeed = 300f * Time.deltaTime;
         Vector3 toMove = new Vector3(Input.GetAxisRaw("Horizontal") * moveSpeed, Input.GetAxisRaw("Vertical") * moveSpeed);
         Move(gameObject, toMove);
+
+        if (Input.GetButtonDown("Speak1")) {
+            GetComponent<Speech>().Speak(0);
+        }
+        if (Input.GetButtonDown("Speak2")) {
+            GetComponent<Speech>().Speak(1);
+        }
+        if (Input.GetButtonDown("Speak3")) {
+            GetComponent<Speech>().Speak(2);
+        }
+        if (Input.GetButtonDown("Speak4")) {
+            GetComponent<Speech>().Speak(3);
+        }
     }
 
     // Moves the Player or an NPC while colliding with walls and NPCs.
     public static void Move(GameObject obj, Vector2 delta) {
-        Vector3 toMove = toMove = new Vector3(Mathf.Round(delta.x), Mathf.Round(delta.y));
+        Vector3 toMove = new Vector3(Mathf.Round(delta.x), Mathf.Round(delta.y));
 
         obj.transform.position += toMove;
 
