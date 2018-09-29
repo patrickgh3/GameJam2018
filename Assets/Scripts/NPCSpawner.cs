@@ -44,6 +44,7 @@ public class NPCSpawner : MonoBehaviour {
                 Physics2D.Raycast(transform.position - (new Vector3(perpendicular.x, perpendicular.y, transform.position.z)), directions[direction],
                     spaceRequirement, LayerMask.GetMask(collisionLayers)).collider == null)
             {
+                blocked = 0;
                 GameObject nextNPC = Instantiate(NPCPrefab, transform.position, Quaternion.identity);
                 nextNPC.GetComponent<NPC>().direction = direction;
             }

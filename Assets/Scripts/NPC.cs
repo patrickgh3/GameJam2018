@@ -71,6 +71,7 @@ public class NPC : MonoBehaviour {
             Physics2D.Raycast(transform.position + new Vector3(parallel.x, parallel.y, transform.position.z) - (new Vector3(perpendicular.x, perpendicular.y, transform.position.z)), delta,
                 moveAmount + spriteSize, LayerMask.GetMask(collisionLayers)).collider == null)
         {
+            blocked = 0;
             Vector2 toMove = new Vector3(transform.position.x + delta.x, transform.position.y + delta.y, transform.position.z);
             moveLocation = toMove;
         }
@@ -88,6 +89,12 @@ public class NPC : MonoBehaviour {
         if (pathCollision)
         {
             direction = pathCollision.GetComponent<NPCPath>().direction;
+        }
+        string[] despawnLayers = { "Goal" };
+        Collider2D goalCollision = Physics2D.OverlapBox(transform.position, size, 0, LayerMask.GetMask(despawnLayers));
+        if (goalCollision)
+        {
+            Destroy(this.gameObject);
         }
     }
 }
