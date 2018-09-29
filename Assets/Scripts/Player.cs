@@ -16,7 +16,7 @@ public class Player : MonoBehaviour {
 
     // Moves the Player or an NPC while colliding with walls and NPCs.
     public static void Move(GameObject obj, Vector2 delta) {
-        Vector3 toMove = toMove = new Vector3(Mathf.Round(delta.x), Mathf.Round(delta.y));
+        Vector3 toMove = new Vector3(Mathf.Round(delta.x), Mathf.Round(delta.y));
 
         obj.transform.position += toMove;
 
