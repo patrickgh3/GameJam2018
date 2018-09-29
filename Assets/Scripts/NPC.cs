@@ -5,7 +5,7 @@ using UnityEngine;
 public class NPC : MonoBehaviour {
 
     //determines current direction for movement. Defined by directions enum
-    private int direction = (int)Directions.RIGHT;
+    public int direction = (int)Directions.RIGHT;
     private Vector2[] directions = new Vector2[8];
     public float moveAmount;
     public float moveTimer;
@@ -26,6 +26,7 @@ public class NPC : MonoBehaviour {
 	// Update is called once per frame
 	void Update () {
         checkMovement();
+        checkDirection();
 	}
 
     void checkMovement()
@@ -72,6 +73,17 @@ public class NPC : MonoBehaviour {
         {
             Vector2 toMove = toMove = new Vector3(transform.position.x + delta.x, transform.position.y + delta.y, transform.position.z);
             moveLocation = toMove;
+        }
+    }
+
+    void checkDirection()
+    {
+        Vector2 size = GetComponent<BoxCollider2D>().size * transform.lossyScale.x;
+        string[] pathLayers = { "Paths" };
+        Collider2D pathCollision = Physics2D.OverlapBox(transform.position, size, 0, LayerMask.GetMask(pathLayers));
+        if (pathCollision)
+        {
+            direction = pathCollision.GetComponent<NPCPath>().direction;
         }
     }
 }
