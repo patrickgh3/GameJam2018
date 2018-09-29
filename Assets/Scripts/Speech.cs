@@ -50,6 +50,5 @@ public class Speech : MonoBehaviour {
         transform.localScale = speechScale * 1.4f;
         speaking = true;
         speakStartTime = Time.time;
-        Debug.Log("Speak");
     }
 }

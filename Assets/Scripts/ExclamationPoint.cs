@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class ExclamationPoint : MonoBehaviour {
 
-    [SerializeField] private SpriteRenderer sprite;
+    private SpriteRenderer sprite;
     [SerializeField] private Sprite[] exclamationSprites;
 
     private void Start() {

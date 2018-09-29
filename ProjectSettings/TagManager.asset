@@ -41,3 +41,15 @@ TagManager:
   - name: Default
     uniqueID: 0
     locked: 0
+  - name: Ground
+    uniqueID: 3184888769
+    locked: 0
+  - name: Actors
+    uniqueID: 3864702649
+    locked: 0
+  - name: SpeechBubbles
+    uniqueID: 335741245
+    locked: 0
+  - name: Exclamations
+    uniqueID: 3767817757
+    locked: 0
