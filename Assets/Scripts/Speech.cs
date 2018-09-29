@@ -3,8 +3,6 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class Speech : MonoBehaviour {
-    [SerializeField] private GameObject speechBubble;
-
     [SerializeField] private Sprite[] symbols;
 
     private bool speaking = false;
@@ -13,11 +11,16 @@ public class Speech : MonoBehaviour {
     private const float speakDuration = 0.65f;
 
     private SpriteRenderer speechSprite;
+    private SpriteRenderer symbolSprite;
     private Vector3 speechScale;
 
     private void Start() {
-        speechSprite = speechBubble.GetComponent<SpriteRenderer>();
-        speechScale = speechBubble.transform.localScale;
+        speechSprite = GetComponent<SpriteRenderer>();
+        speechSprite.enabled = false;
+        symbolSprite = GetComponentsInChildren<Transform>()[1].GetComponent<SpriteRenderer>();
+        symbolSprite.enabled = false;
+
+        speechScale = transform.localScale;
     }
 
     private void FixedUpdate() {
@@ -29,20 +32,24 @@ public class Speech : MonoBehaviour {
             //float alpha = Mathf.Min(1f, speechSprite.color.a + 5f * Time.deltaTime);
             //speechSprite.color = new Color(1, 1, 1, alpha);
 
-            speechBubble.transform.localScale += (speechScale - speechBubble.transform.localScale) * 0.1f;
+            transform.localScale += (speechScale - transform.localScale) * 0.1f;
         }
         else {
             float alpha = Mathf.Max(0, speechSprite.color.a - 5f * Time.deltaTime);
             speechSprite.color = new Color(1, 1, 1, alpha);
+            symbolSprite.color = speechSprite.color;
         }
     }
 
     public void Speak(int symbolNum) {
         speechSprite.enabled = true;
+        symbolSprite.enabled = true;
         speechSprite.color = new Color(1, 1, 1, 1);
-        speechSprite.sprite = symbols[symbolNum];
-        speechBubble.transform.localScale = speechScale * 1.4f;
+        symbolSprite.color = new Color(1, 1, 1, 1);
+        symbolSprite.sprite = symbols[symbolNum];
+        transform.localScale = speechScale * 1.4f;
         speaking = true;
         speakStartTime = Time.time;
+        Debug.Log("Speak");
     }
 }

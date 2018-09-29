@@ -4,26 +4,61 @@ using UnityEngine;
 
 public class Player : MonoBehaviour {
 
-	void Start() {
+    private bool frozen = false;
+    private float timeOutOfLine = 0;
+    private const float timeUntilCaught = 1f;
+
+    [SerializeField] private AnimationClip idleAnim;
+    [SerializeField] private AnimationClip walkAnim;
+
+    void Start() {
 		
 	}
 	
 	void FixedUpdate() {
+        if (frozen) return;
+
         float moveSpeed = 300f * Time.deltaTime;
-        Vector3 toMove = new Vector3(Input.GetAxisRaw("Horizontal") * moveSpeed, Input.GetAxisRaw("Vertical") * moveSpeed);
+        float horiz = Input.GetAxisRaw("Horizontal");
+        float vert = Input.GetAxisRaw("Vertical");
+        Vector3 toMove = new Vector3(horiz * moveSpeed, vert * moveSpeed);
         Move(gameObject, toMove);
 
+        if (horiz == 0 && vert == 0) {
+            GetComponent<Animator>().Play("Idle");
+            GetComponent<SpriteRenderer>().flipX = false;
+        }
+        else {
+            GetComponent<Animator>().Play("WalkRight");
+            GetComponent<SpriteRenderer>().flipX = (horiz < 0);
+        }
+
         if (Input.GetButtonDown("Speak1")) {
-            GetComponent<Speech>().Speak(0);
+            GetComponentInChildren<Speech>().Speak(0);
         }
         if (Input.GetButtonDown("Speak2")) {
-            GetComponent<Speech>().Speak(1);
+            GetComponentInChildren<Speech>().Speak(1);
         }
         if (Input.GetButtonDown("Speak3")) {
-            GetComponent<Speech>().Speak(2);
+            GetComponentInChildren<Speech>().Speak(2);
         }
         if (Input.GetButtonDown("Speak4")) {
-            GetComponent<Speech>().Speak(3);
+            GetComponentInChildren<Speech>().Speak(3);
+        }
+
+        Vector2 size = GetComponent<BoxCollider2D>().size * transform.lossyScale.x;
+        if (Physics2D.OverlapBox(transform.position, size, 0, LayerMask.GetMask(new string[] { "Death" }))) {
+            timeOutOfLine += Time.deltaTime;
+            if (timeOutOfLine > timeUntilCaught) {
+                frozen = true;
+                World.Instance.StartFade();
+            }
+
+            GetComponentInChildren<ExclamationPoint>().SetStatus(true, timeOutOfLine / timeUntilCaught);
+        }
+        else {
+            timeOutOfLine = 0;
+            GetComponentInChildren<ExclamationPoint>().SetStatus(false, 0);
         }
     }
 
