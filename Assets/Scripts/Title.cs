@@ -6,6 +6,7 @@ using UnityEngine.SceneManagement;
 public class Title : MonoBehaviour {
 
     [SerializeField] private Object startScene;
+    private bool started = false;
 
 	// Use this for initialization
 	void Start () {
@@ -14,8 +15,10 @@ public class Title : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-	    if (Input.anyKeyDown) {
+	    if (Input.anyKeyDown && !started) {
             World.Instance.StartFade(false, startScene.name);
+            World.Instance.EnableMusic(true);
+            started = true;
         }
 	}
 }
