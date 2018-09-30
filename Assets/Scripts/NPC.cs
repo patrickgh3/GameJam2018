@@ -21,6 +21,7 @@ public class NPC : MonoBehaviour {
     private string[] collisionLayers = { "Player", "NPC"};
     public float blocked = 0;
     private PlayerSprite playerSprite;
+    private bool lockMovement = false;
     public float speed = 300f;
 
     public bool hasKey;
@@ -33,17 +34,36 @@ public class NPC : MonoBehaviour {
     }
 	
 	// Update is called once per frame
+
 	protected void Update () {
-        moveSpeed = speed * Time.deltaTime;
-        if (GlobalBell.bellActive)
+        if (!lockMovement)
         {
-            playerSprite.Animate(Vector2.zero);
+            moveSpeed = speed * Time.deltaTime;
+            if (GlobalBell.bellActive)
+            {
+                playerSprite.Animate(Vector2.zero);
+            }
+            else
+            {
+                playerSprite = GetComponent<PlayerSprite>();
+                checkMovement();
+                checkDirection();
+            }
         }
         else
         {
-            checkMovement();
-            checkDirection();
+            moveSpeed = speed * Time.deltaTime;
+            move(moveSpeed * directions[(int)Directions.UP]);
+            string[] despawnLayers = { "Despawn" };
+            Vector2 size = GetComponent<BoxCollider2D>().size * transform.lossyScale.x;
+            Collider2D despawnCollision = Physics2D.OverlapBox(transform.position, size, 0, LayerMask.GetMask(despawnLayers));
+            if (despawnCollision)
+            {
+                gateObject.GetComponent<Animator>().SetTrigger("gateClose");
+                Destroy(this.gameObject);
+            }
         }
+
 	}
 
     void checkMovement()
@@ -146,14 +166,15 @@ public class NPC : MonoBehaviour {
                 currentSpeechPad.Action3();
             }
         }
-        string[] despawnLayers = { "Goal" };
-        Collider2D goalCollision = Physics2D.OverlapBox(transform.position, size, 0, LayerMask.GetMask(despawnLayers));
+        string[] goalLayers = { "Goal" };
+        Collider2D goalCollision = Physics2D.OverlapBox(transform.position, size, 0, LayerMask.GetMask(goalLayers));
         if (goalCollision && (goalCollision.GetComponent<Goal>().isOpen || hasKey && goalCollision.GetComponent<Goal>().keyDoor))
         {
             goalCollision.gameObject.GetComponent<Goal>().isOpen = false;
             gateObject.GetComponent<Animator>().SetTrigger("gateOpen");
-            Destroy(this.gameObject);
+            lockMovement = true;
         }
+
     }
 
     public void giveKey()

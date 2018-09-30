@@ -7,7 +7,7 @@ public class World : MonoBehaviour {
     [SerializeField] private Texture fullWhiteTexture;
 
     private string toScene;
-
+    
     private float fadeTime = 0;
     private const float fadeLength = 0.5f;
     private enum FadeState {
