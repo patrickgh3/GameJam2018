@@ -133,7 +133,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1517715328560404}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -709.15936, y: -316.113, z: 10.674227}
+  m_LocalPosition: {x: -165.74341, y: 99.526855, z: 10.674227}
   m_LocalScale: {x: 70, y: 70, z: 1}
   m_Children:
   - {fileID: 4725384664269716}
@@ -303,7 +303,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 82cd3e67377daf848bec0233c1fbaf14, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  exclamationSprites: []
+  exclamationSprites:
+  - {fileID: 21300012, guid: a839932bb50833249892b6de982f0b7e, type: 3}
+  - {fileID: 21300014, guid: a839932bb50833249892b6de982f0b7e, type: 3}
+  - {fileID: 21300016, guid: a839932bb50833249892b6de982f0b7e, type: 3}
+  - {fileID: 21300018, guid: a839932bb50833249892b6de982f0b7e, type: 3}
+  - {fileID: 21300020, guid: a839932bb50833249892b6de982f0b7e, type: 3}
+  - {fileID: 21300022, guid: a839932bb50833249892b6de982f0b7e, type: 3}
 --- !u!212 &212480571604888254
 SpriteRenderer:
   m_ObjectHideFlags: 1

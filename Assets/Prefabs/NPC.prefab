@@ -93,7 +93,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1095407032697956}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -986.7434, y: 159.52686, z: 10.674227}
+  m_LocalPosition: {x: -985, y: 124, z: 10.674227}
   m_LocalScale: {x: 100, y: 100, z: 1}
   m_Children:
   - {fileID: 4830234980800608}
@@ -226,7 +226,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 82cd3e67377daf848bec0233c1fbaf14, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  exclamationSprites: []
+  exclamationSprites:
+  - {fileID: 21300012, guid: a839932bb50833249892b6de982f0b7e, type: 3}
+  - {fileID: 21300014, guid: a839932bb50833249892b6de982f0b7e, type: 3}
+  - {fileID: 21300016, guid: a839932bb50833249892b6de982f0b7e, type: 3}
+  - {fileID: 21300018, guid: a839932bb50833249892b6de982f0b7e, type: 3}
+  - {fileID: 21300020, guid: a839932bb50833249892b6de982f0b7e, type: 3}
+  - {fileID: 21300022, guid: a839932bb50833249892b6de982f0b7e, type: 3}
 --- !u!114 &114225937200162458
 MonoBehaviour:
   m_ObjectHideFlags: 1

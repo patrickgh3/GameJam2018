@@ -7,7 +7,7 @@ public class Player : MonoBehaviour {
     SpeechPad currentSpeechPad;
     private bool frozen = false;
     private float timeOutOfLine = 0;
-    private const float timeUntilCaught = 1f;
+    private const float timeUntilCaught = 0.75f;
 
     [SerializeField] private AnimationClip idleAnim;
     [SerializeField] private AnimationClip walkAnim;
