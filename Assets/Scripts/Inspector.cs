@@ -13,11 +13,12 @@ public class Inspector : MonoBehaviour {
 
     public int[] symbolCycle;
     private int cyclePos = 0;
-    private int correctSymbol = 1;
+    private int correctSymbol = 0;
 
     private void Start() {
         exclamation = GetComponentInChildren<ExclamationPoint>();
         detect = GetComponentInChildren<InspectorDetect>();
+        correctSymbol = symbolCycle[0];
         detect.validActions = new int[] { correctSymbol };
     }
 
@@ -38,16 +39,18 @@ public class Inspector : MonoBehaviour {
     }
 
     public void PlayerSpeak(int symbol) {
-        if (symbol == correctSymbol) {
+        if (symbol == correctSymbol && !playerWasCorrect) {
             playerWasCorrect = true;
             cyclePos = (cyclePos + 1) % symbolCycle.Length;
             correctSymbol = symbolCycle[cyclePos];
             detect.validActions[0] = correctSymbol;
         }
         else {
-            nearPlayer.frozen = true;
-            World.Instance.StartFade(true, "");
-            exclamation.SetStatus(true, 1);
+            if (nearPlayer != null) {
+                nearPlayer.frozen = true;
+                World.Instance.StartFade(true, "");
+                exclamation.SetStatus(true, 1);
+            }
         }
     }
 }
