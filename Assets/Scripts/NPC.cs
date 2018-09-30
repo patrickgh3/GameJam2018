@@ -39,7 +39,7 @@ public class NPC : MonoBehaviour {
         if (!lockMovement)
         {
             moveSpeed = speed * Time.deltaTime;
-            if (GlobalBell.bellActive)
+            if (BellStop.bellActive)
             {
                 playerSprite.Animate(Vector2.zero);
             }
