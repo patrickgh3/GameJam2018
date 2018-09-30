@@ -131,7 +131,6 @@ public class Player : MonoBehaviour {
                 exclamation.SetStatus(true, exValue);
             }
             else if (Physics2D.OverlapBox(transform.position, size, 0, LayerMask.GetMask(new string[] { "MoveDeath" })) && moving) {
-
                 World.Instance.Freeze();
             }
             else
@@ -151,6 +150,14 @@ public class Player : MonoBehaviour {
             if (Input.GetKeyDown(KeyCode.R)) {
                 frozen = true;
                 World.Instance.StartFade(true, "");
+            }
+
+            // Sacrifice trigger
+            if (Physics2D.OverlapBox(transform.position, size, 0, LayerMask.GetMask(new string[] { "SacrificeTrigger" }))) {
+                gameObject.AddComponent<Sacrifice>();
+                frozen = true;
+                playerSprite.Animate(Vector2.zero);
+                World.Instance.PlaySound(World.Clip.Sacrifice);
             }
         }
     }

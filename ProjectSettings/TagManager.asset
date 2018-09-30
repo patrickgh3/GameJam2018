@@ -22,7 +22,7 @@ TagManager:
   - Death
   - MoveDeath
   - Despawn
-  - 
+  - SacrificeTrigger
   - 
   - 
   - 
@@ -52,4 +52,7 @@ TagManager:
     locked: 0
   - name: Exclamations
     uniqueID: 3767817757
+    locked: 0
+  - name: Sacrifices
+    uniqueID: 3133803303
     locked: 0
