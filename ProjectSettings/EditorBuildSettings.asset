@@ -11,6 +11,9 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/Levels/Starting_level.unity
     guid: c4a0da106a6af33428e5bc6e07fbe87f
-  - enabled: 1
+  - enabled: 0
     path: Assets/Scenes/BasicLine.unity
     guid: 557be8965b8f6eb45b0610aafa3927be
+  - enabled: 1
+    path: Assets/Scenes/Levels/lvl4_talk.unity
+    guid: ce6ae7db457d29c48a8c73b0522ae06c
