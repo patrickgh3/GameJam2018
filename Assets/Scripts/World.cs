@@ -6,7 +6,7 @@ using UnityEngine.SceneManagement;
 public class World : MonoBehaviour {
     [SerializeField] private Texture fullWhiteTexture;
 
-    private string toScene;
+    private int fadeToSceneIndex;
     private bool musicPlaying = false;
     private bool startMusicNextScene = false;
     
@@ -43,7 +43,7 @@ public class World : MonoBehaviour {
             fadeTime += Time.deltaTime;
             if (fadeTime > fadeLength * 1.5f) {
                 fadeState = FadeState.FromBlack;
-                SceneManager.LoadScene(toScene);
+                SceneManager.LoadScene(fadeToSceneIndex);
 
                 if (startMusicNextScene) {
                     startMusicNextScene = false;
@@ -72,19 +72,23 @@ public class World : MonoBehaviour {
             EnableMusic(!musicPlaying);
         }
 
-        // Escape to return to title
-        if (Input.GetKeyDown(KeyCode.Escape) && fadeState == FadeState.Idle) {
-            StartFade(false, "Title", 0);
-        }
+        if (fadeState == FadeState.Idle) {
+            // Escape to return to title
+            if (Input.GetKeyDown(KeyCode.Escape)) {
+                StartFade(false, World.Instance.GetTitleScene(), 0);
+            }
 
-        // Page up and down to switch scenes
-        int curScene = SceneManager.GetActiveScene().buildIndex;
-        int numScenes = SceneManager.sceneCountInBuildSettings;
-        if (Input.GetKeyDown(KeyCode.PageUp) && curScene < numScenes - 1) {
-            SceneManager.LoadScene(curScene + 1);
-        }
-        else if (Input.GetKeyDown(KeyCode.PageDown) && curScene > 0) {
-            SceneManager.LoadScene(curScene - 1);
+            // Page up and down to switch scenes
+            int curScene = SceneManager.GetActiveScene().buildIndex;
+            int numScenes = SceneManager.sceneCountInBuildSettings;
+            if (Input.GetKeyDown(KeyCode.PageUp) && curScene < numScenes - 1)
+            {
+                StartFade(false, curScene + 1, 0);
+            }
+            else if (Input.GetKeyDown(KeyCode.PageDown) && curScene > 0)
+            {
+                StartFade(false, curScene - 1, 0);
+            }
         }
     }
 
@@ -97,23 +101,27 @@ public class World : MonoBehaviour {
         Graphics.DrawTexture(Camera.main.pixelRect, fullWhiteTexture, new Rect(0, 0, 1, 1), 0, 0, 0, 0, new Color(0, 0, 0, alpha * 0.5f));
     }
 
-    public void StartFade(bool restart, string scene, float pauseTime) {
+    public void StartFade(bool restart, int scene, float pauseTime) {
         fadeState = FadeState.ToBlack;
         fadeTime = -pauseTime;
 
-        if (restart) toScene = SceneManager.GetActiveScene().name;
-        else {
-            toScene = scene;
+        if (restart) {
+            fadeToSceneIndex = SceneManager.GetActiveScene().buildIndex;
+        }
+        else
+        {
+            fadeToSceneIndex = scene;
             startMusicNextScene = true;
         }
     }
 
-    public void LoadNextLevel()
-    {
-        int curScene = SceneManager.GetActiveScene().buildIndex;
-        fadeState = FadeState.ToBlack;
-        fadeTime = 0;
-        SceneManager.LoadScene(curScene + 1);
+    public int GetNextScene() {
+        return SceneManager.GetActiveScene().buildIndex + 1;
+    }
+
+    public int GetTitleScene() {
+        return 0;
+        //return SceneManager.GetSceneByName("Assets/Scenes/Title").buildIndex;
     }
 
     public void Freeze() {
@@ -121,7 +129,7 @@ public class World : MonoBehaviour {
         player.GetComponent<PlayerSprite>().Animate(Vector2.zero);
         player.frozen = true;
 
-        StartFade(true, "", 0.75f);
+        StartFade(true, 0, 0.75f);
 
         /*foreach (NPC npc in FindObjectsOfType<NPC>()) {
             npc.speed = 0;
