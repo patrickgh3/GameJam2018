@@ -225,4 +225,10 @@ public class Player : MonoBehaviour {
         hasKey = true;
         GetComponentInChildren<Key>().SetStatus(true);
     }
+
+    public void die()
+    {
+        exclamation.SetStatus(true, 1);
+        World.Instance.Freeze();
+    }
 }
