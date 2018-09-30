@@ -20,7 +20,6 @@ public class NPCSpawner : MonoBehaviour {
     // Use this for initialization
     void Start () {
         populateDirections();
-        spawnTimer = 0;
         direction = (int)Enum.Parse(typeof(Directions), directionString);
     }
 

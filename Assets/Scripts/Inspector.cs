@@ -15,7 +15,7 @@ public class Inspector : NPC {
     private int cyclePos = 0;
     private int correctSymbol = 0;
 
-    private void Start() {
+    new private void Start() {
         base.Start();
         exclamation = GetComponentInChildren<ExclamationPoint>();
         detect = GetComponentInChildren<InspectorDetect>();
@@ -23,7 +23,7 @@ public class Inspector : NPC {
         detect.validActions = new int[] { correctSymbol };
     }
 
-    private void Update() {
+    new private void Update() {
         Collider2D playerInRadius = Physics2D.OverlapCircle(transform.position, radius, LayerMask.GetMask(new string[] { "Player" }));
 
         if (playerInRadius) {

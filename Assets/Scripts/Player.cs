@@ -158,7 +158,7 @@ public class Player : MonoBehaviour {
 
             if (Input.GetKeyDown(KeyCode.R)) {
                 frozen = true;
-                World.Instance.StartFade(true, "");
+                World.Instance.StartFade(true, "", 0);
             }
 
             // Sacrifice trigger
@@ -167,6 +167,7 @@ public class Player : MonoBehaviour {
                 frozen = true;
                 playerSprite.Animate(Vector2.zero);
                 World.Instance.PlaySound(World.Clip.Sacrifice);
+                World.Instance.StartFade(false, "Title", 6.0f);
             }
         }
     }
