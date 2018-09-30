@@ -6,7 +6,6 @@ public class NPC : MonoBehaviour {
 
     SpeechPad currentSpeechPad;
     int speechChoice = 0;
-    bool testSpoken = false;
     //determines current direction for movement. Defined by directions enum
     public int direction = (int)Directions.RIGHT;
     private Vector2[] directions = new Vector2[8];

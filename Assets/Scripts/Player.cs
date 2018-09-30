@@ -5,14 +5,11 @@ using UnityEngine;
 public class Player : MonoBehaviour {
 
     SpeechPad currentSpeechPad;
-    private bool frozen = false;
+    public bool frozen = false;
     private bool hasKey = true;
     private float timeOutOfLine = 0;
     private const float timeUntilCaught = 0.75f;
     public bool moving = false;
-
-    [SerializeField] private AnimationClip idleAnim;
-    [SerializeField] private AnimationClip walkAnim;
 
     private PlayerSprite playerSprite;
     private ExclamationPoint exclamation;
@@ -123,11 +120,13 @@ public class Player : MonoBehaviour {
             }
 
         }
-        goalCheck();
+
         if (Input.GetKeyDown(KeyCode.R)) {
             frozen = true;
             World.Instance.StartFade(true, "");
         }
+
+        goalCheck();
     }
 
     // Moves the Player or an NPC while colliding with walls and NPCs.

@@ -57,7 +57,7 @@ public class World : MonoBehaviour {
 
     public void StartFade(bool restart, string scene) {
         fadeState = FadeState.ToBlack;
-        fadeTime = -0.2f;
+        fadeTime = -0.5f;
 
         if (restart) toScene = SceneManager.GetActiveScene().name;
         else toScene = scene;
