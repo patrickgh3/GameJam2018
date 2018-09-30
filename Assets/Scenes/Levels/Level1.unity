@@ -1541,6 +1541,65 @@ Transform:
   m_PrefabParentObject: {fileID: 4143527656716900, guid: 1735e894876f2ff4eb9ceda0274871ca,
     type: 2}
   m_PrefabInternal: {fileID: 670782413}
+--- !u!1001 &676297753
+Prefab:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 4549715027548750, guid: 88f8c8cd227c2be4b8a4bbee4ff501b4, type: 2}
+      propertyPath: m_LocalPosition.x
+      value: -109
+      objectReference: {fileID: 0}
+    - target: {fileID: 4549715027548750, guid: 88f8c8cd227c2be4b8a4bbee4ff501b4, type: 2}
+      propertyPath: m_LocalPosition.y
+      value: 1311
+      objectReference: {fileID: 0}
+    - target: {fileID: 4549715027548750, guid: 88f8c8cd227c2be4b8a4bbee4ff501b4, type: 2}
+      propertyPath: m_LocalPosition.z
+      value: -4.6335135
+      objectReference: {fileID: 0}
+    - target: {fileID: 4549715027548750, guid: 88f8c8cd227c2be4b8a4bbee4ff501b4, type: 2}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4549715027548750, guid: 88f8c8cd227c2be4b8a4bbee4ff501b4, type: 2}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4549715027548750, guid: 88f8c8cd227c2be4b8a4bbee4ff501b4, type: 2}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4549715027548750, guid: 88f8c8cd227c2be4b8a4bbee4ff501b4, type: 2}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4549715027548750, guid: 88f8c8cd227c2be4b8a4bbee4ff501b4, type: 2}
+      propertyPath: m_RootOrder
+      value: 21
+      objectReference: {fileID: 0}
+    - target: {fileID: 4549715027548750, guid: 88f8c8cd227c2be4b8a4bbee4ff501b4, type: 2}
+      propertyPath: m_LocalScale.x
+      value: 296.5506
+      objectReference: {fileID: 0}
+    - target: {fileID: 4549715027548750, guid: 88f8c8cd227c2be4b8a4bbee4ff501b4, type: 2}
+      propertyPath: m_LocalScale.y
+      value: 82.13013
+      objectReference: {fileID: 0}
+    - target: {fileID: 4549715027548750, guid: 88f8c8cd227c2be4b8a4bbee4ff501b4, type: 2}
+      propertyPath: m_LocalScale.z
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1180815724580800, guid: 88f8c8cd227c2be4b8a4bbee4ff501b4, type: 2}
+      propertyPath: m_Name
+      value: Despawner
+      objectReference: {fileID: 0}
+    m_RemovedComponents:
+    - {fileID: 114104536504531100, guid: 88f8c8cd227c2be4b8a4bbee4ff501b4, type: 2}
+  m_ParentPrefab: {fileID: 100100000, guid: 88f8c8cd227c2be4b8a4bbee4ff501b4, type: 2}
+  m_IsPrefabParent: 0
 --- !u!1 &707786724
 GameObject:
   m_ObjectHideFlags: 0

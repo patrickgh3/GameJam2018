@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class Player : MonoBehaviour {
 
@@ -10,6 +11,7 @@ public class Player : MonoBehaviour {
     private float timeOutOfLine = 0;
     private const float timeUntilCaught = 0.75f;
     public bool moving = false;
+    private bool lockMovement = false;
     private GameObject gateObject;
 
     private PlayerSprite playerSprite;
@@ -22,113 +24,140 @@ public class Player : MonoBehaviour {
 	}
 	
 	void FixedUpdate() {
-        if (frozen) return;
-
-        float moveSpeed = 300f * Time.deltaTime;
-        float horiz = Input.GetAxisRaw("Horizontal");
-        float vert = Input.GetAxisRaw("Vertical");
-        Vector3 toMove = new Vector3(horiz * moveSpeed, vert * moveSpeed);
-
-        if (toMove != Vector3.zero)
+        if (lockMovement)
         {
-            moving = true;
+            float moveSpeed = 300f * Time.deltaTime;
+            Move(gameObject, moveSpeed * Vector3.up);
+            string[] despawnLayers = { "Despawn" };
+            Vector2 size = GetComponent<BoxCollider2D>().size * transform.lossyScale.x;
+            Collider2D despawnCollision = Physics2D.OverlapBox(transform.position, size, 0, LayerMask.GetMask(despawnLayers));
+            if (despawnCollision)
+            {
+                gateObject.GetComponent<Animator>().SetTrigger("gateClose");
+                World.Instance.StartFade(false, SceneManager.GetSceneByBuildIndex(SceneManager.GetActiveScene().buildIndex + 1).name);
+            }
         }
         else
         {
-            moving = false;
-        }
-        Move(gameObject, toMove);
+            if (frozen) return;
 
-        GetComponent<PlayerSprite>().Animate(toMove);
+            float moveSpeed = 300f * Time.deltaTime;
+            float horiz = Input.GetAxisRaw("Horizontal");
+            float vert = Input.GetAxisRaw("Vertical");
+            Vector3 toMove = new Vector3(horiz * moveSpeed, vert * moveSpeed);
 
-        Vector2 size = GetComponent<BoxCollider2D>().size * transform.lossyScale.x;
-        string[] actionLayers = { "Interactable" };
-        Collider2D actionCollision = Physics2D.OverlapBox(transform.position, size, 0, LayerMask.GetMask(actionLayers));
-        if (actionCollision)
-        {
-            currentSpeechPad = actionCollision.GetComponent<SpeechPad>();
-        }
-        else
-        {
-            currentSpeechPad = null;
-        }
-        if (Input.GetButtonDown("Speak1")) {
-            GetComponentInChildren<Speech>().Speak(0);
-            if(currentSpeechPad)
+            if (toMove != Vector3.zero)
             {
-                currentSpeechPad.caller = this.gameObject;
-                currentSpeechPad.Action0();
+                moving = true;
             }
-        }
-        if (Input.GetButtonDown("Speak2")) {
-            GetComponentInChildren<Speech>().Speak(1);
-            if (currentSpeechPad)
+            else
             {
-                currentSpeechPad.caller = this.gameObject;
-                currentSpeechPad.Action1();
+                moving = false;
             }
-        }
-        if (Input.GetButtonDown("Speak3")) {
-            GetComponentInChildren<Speech>().Speak(2);
-            if (currentSpeechPad)
+            Move(gameObject, toMove);
+
+            GetComponent<PlayerSprite>().Animate(toMove);
+
+            Vector2 size = GetComponent<BoxCollider2D>().size * transform.lossyScale.x;
+            string[] actionLayers = { "Interactable" };
+            Collider2D actionCollision = Physics2D.OverlapBox(transform.position, size, 0, LayerMask.GetMask(actionLayers));
+            if (actionCollision)
             {
-                currentSpeechPad.caller = this.gameObject;
-                currentSpeechPad.Action2();
+                currentSpeechPad = actionCollision.GetComponent<SpeechPad>();
             }
-        }
-        if (Input.GetButtonDown("Speak4")) {
-            GetComponentInChildren<Speech>().Speak(3);
-            if (currentSpeechPad)
+            else
             {
-                currentSpeechPad.caller = this.gameObject;
-                currentSpeechPad.Action3();
+                currentSpeechPad = null;
             }
-        }
-
-        if (Input.GetKeyDown("1")) playerSprite.playerColor = PlayerSprite.PlayerColor.Black;
-        if (Input.GetKeyDown("2")) playerSprite.playerColor = PlayerSprite.PlayerColor.Blue;
-        if (Input.GetKeyDown("3")) playerSprite.playerColor = PlayerSprite.PlayerColor.Red;
-
-        if (Physics2D.OverlapBox(transform.position, size, 0, LayerMask.GetMask(new string[] { "Death" }))) {
-            timeOutOfLine += Time.deltaTime;
-            if (timeOutOfLine > timeUntilCaught) {
-                frozen = true;
-                World.Instance.StartFade(true, "");
-            }
-
-            float exValue = timeOutOfLine / timeUntilCaught;
-            foreach (Collider2D collider in Physics2D.OverlapCircleAll(transform.position, size.x * 7, LayerMask.GetMask(new string[] { "NPC" }))) {
-                ExclamationPoint ex = collider.GetComponentInChildren<ExclamationPoint>();
-                ex.SetStatus(true, exValue);
-            }
-            exclamation.SetStatus(true, exValue);
-        }
-        else if (Physics2D.OverlapBox(transform.position, size, 0, LayerMask.GetMask(new string[] { "MoveDeath" })) && moving)
-        {
-            timeOutOfLine += Time.deltaTime*100f;
-            if (timeOutOfLine > timeUntilCaught)
+            if (Input.GetButtonDown("Speak1"))
             {
-                frozen = true;
-                World.Instance.StartFade(true, "");
+                GetComponentInChildren<Speech>().Speak(0);
+                if (currentSpeechPad)
+                {
+                    currentSpeechPad.caller = this.gameObject;
+                    currentSpeechPad.Action0();
+                }
             }
-
-            GetComponentInChildren<ExclamationPoint>().SetStatus(true, timeOutOfLine / timeUntilCaught);
-        }
-        else {
-            if (timeOutOfLine != 0) {
-                foreach (ExclamationPoint ex in FindObjectsOfType<ExclamationPoint>()) {
-                    ex.SetStatus(false, 0);
+            if (Input.GetButtonDown("Speak2"))
+            {
+                GetComponentInChildren<Speech>().Speak(1);
+                if (currentSpeechPad)
+                {
+                    currentSpeechPad.caller = this.gameObject;
+                    currentSpeechPad.Action1();
+                }
+            }
+            if (Input.GetButtonDown("Speak3"))
+            {
+                GetComponentInChildren<Speech>().Speak(2);
+                if (currentSpeechPad)
+                {
+                    currentSpeechPad.caller = this.gameObject;
+                    currentSpeechPad.Action2();
+                }
+            }
+            if (Input.GetButtonDown("Speak4"))
+            {
+                GetComponentInChildren<Speech>().Speak(3);
+                if (currentSpeechPad)
+                {
+                    currentSpeechPad.caller = this.gameObject;
+                    currentSpeechPad.Action3();
                 }
             }
 
-        }
+            if (Input.GetKeyDown("1")) playerSprite.playerColor = PlayerSprite.PlayerColor.Black;
+            if (Input.GetKeyDown("2")) playerSprite.playerColor = PlayerSprite.PlayerColor.Blue;
+            if (Input.GetKeyDown("3")) playerSprite.playerColor = PlayerSprite.PlayerColor.Red;
 
-        if (Input.GetKeyDown(KeyCode.R)) {
-            frozen = true;
-            World.Instance.StartFade(true, "");
-        }
+            if (Physics2D.OverlapBox(transform.position, size, 0, LayerMask.GetMask(new string[] { "Death" })))
+            {
+                timeOutOfLine += Time.deltaTime;
+                if (timeOutOfLine > timeUntilCaught)
+                {
+                    frozen = true;
+                    World.Instance.StartFade(true, "");
+                }
 
-        goalCheck();
+                float exValue = timeOutOfLine / timeUntilCaught;
+                foreach (Collider2D collider in Physics2D.OverlapCircleAll(transform.position, size.x * 7, LayerMask.GetMask(new string[] { "NPC" })))
+                {
+                    ExclamationPoint ex = collider.GetComponentInChildren<ExclamationPoint>();
+                    ex.SetStatus(true, exValue);
+                }
+                exclamation.SetStatus(true, exValue);
+            }
+            else if (Physics2D.OverlapBox(transform.position, size, 0, LayerMask.GetMask(new string[] { "MoveDeath" })) && moving)
+            {
+                timeOutOfLine += Time.deltaTime * 100f;
+                if (timeOutOfLine > timeUntilCaught)
+                {
+                    frozen = true;
+                    World.Instance.StartFade(true, "");
+                }
+
+                GetComponentInChildren<ExclamationPoint>().SetStatus(true, timeOutOfLine / timeUntilCaught);
+            }
+            else
+            {
+                if (timeOutOfLine != 0)
+                {
+                    foreach (ExclamationPoint ex in FindObjectsOfType<ExclamationPoint>())
+                    {
+                        ex.SetStatus(false, 0);
+                    }
+                }
+
+            }
+
+            if (Input.GetKeyDown(KeyCode.R))
+            {
+                frozen = true;
+                World.Instance.StartFade(true, "");
+            }
+
+            goalCheck();
+        }
     }
 
     // Moves the Player or an NPC while colliding with walls and NPCs.
@@ -176,7 +205,7 @@ public class Player : MonoBehaviour {
             goalCollision.gameObject.GetComponent<Goal>().isOpen = false;
             Debug.Log("Won the level");
             gateObject.GetComponent<Animator>().SetTrigger("gateOpen");
-            Destroy(this.gameObject);
+            lockMovement = true;
         }
     }
 
