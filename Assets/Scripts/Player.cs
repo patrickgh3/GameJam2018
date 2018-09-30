@@ -115,14 +115,9 @@ public class Player : MonoBehaviour {
 
             if (Physics2D.OverlapBox(transform.position, size, 0, LayerMask.GetMask(new string[] { "Death" })))
             {
-                timeOutOfLine += Time.deltaTime;
-                if (timeOutOfLine > timeUntilCaught)
-                {
-                    frozen = true;
-                    World.Instance.StartFade(true, "");
+                if (timeOutOfLine == 0) {
+                    World.Instance.PlaySound(World.Clip.Exclamation);
                 }
-
-
                 float exValue = timeOutOfLine / timeUntilCaught;
                 foreach (Collider2D collider in Physics2D.OverlapCircleAll(transform.position, size.x * 7, LayerMask.GetMask(new string[] { "NPC" })))
                 {
@@ -139,26 +134,21 @@ public class Player : MonoBehaviour {
             }       
             else
             {
-                if (timeOutOfLine != 0)
-                {
-                    foreach (ExclamationPoint ex in FindObjectsOfType<ExclamationPoint>())
-                    {
+                if (timeOutOfLine != 0) {
+                    // Remove all exclamation points
+                    foreach (ExclamationPoint ex in FindObjectsOfType<ExclamationPoint>()) {
                         ex.SetStatus(false, 0);
                     }
                 }
 
-            }
-
-            if (Input.GetKeyDown(KeyCode.R))
-            {
-                frozen = true;
-                World.Instance.StartFade(true, "");
+                timeOutOfLine = 0;
             }
 
             goalCheck();
-            if (Input.GetKeyDown(KeyCode.R))
-            {
-                World.Instance.Freeze();
+
+            if (Input.GetKeyDown(KeyCode.R)) {
+                frozen = true;
+                World.Instance.StartFade(true, "");
             }
         }
     }

@@ -44,7 +44,7 @@ public class GlobalBell : MonoBehaviour {
         {
             if(bellTimer > bellThreshhold)
             {
-                world.GetComponent<AudioSource>().Play();
+                world.PlaySound(World.Clip.Bell);
                 bellTimer = 0;
                 bellActive = true;
             }
