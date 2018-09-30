@@ -5,6 +5,7 @@ using UnityEngine;
 public abstract class SpeechPad : MonoBehaviour {
 
     public int[] validActions;
+    public GameObject caller;
 	// Use this for initialization
 	void Start () {
 		

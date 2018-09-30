@@ -6,6 +6,7 @@ public class Player : MonoBehaviour {
 
     SpeechPad currentSpeechPad;
     private bool frozen = false;
+    private bool hasKey = true;
     private float timeOutOfLine = 0;
     private const float timeUntilCaught = 1f;
 
@@ -20,8 +21,8 @@ public class Player : MonoBehaviour {
     [SerializeField] private AnimationClip walkAnim;
 
     void Start() {
-		
-	}
+        GetComponentInChildren<Key>().SetStatus(false);
+    }
 	
 	void FixedUpdate() {
         if (frozen) return;
@@ -62,6 +63,7 @@ public class Player : MonoBehaviour {
             GetComponentInChildren<Speech>().Speak(0);
             if(currentSpeechPad)
             {
+                currentSpeechPad.caller = this.gameObject;
                 currentSpeechPad.Action0();
             }
         }
@@ -69,6 +71,7 @@ public class Player : MonoBehaviour {
             GetComponentInChildren<Speech>().Speak(1);
             if (currentSpeechPad)
             {
+                currentSpeechPad.caller = this.gameObject;
                 currentSpeechPad.Action1();
             }
         }
@@ -76,6 +79,7 @@ public class Player : MonoBehaviour {
             GetComponentInChildren<Speech>().Speak(2);
             if (currentSpeechPad)
             {
+                currentSpeechPad.caller = this.gameObject;
                 currentSpeechPad.Action2();
             }
         }
@@ -83,6 +87,7 @@ public class Player : MonoBehaviour {
             GetComponentInChildren<Speech>().Speak(3);
             if (currentSpeechPad)
             {
+                currentSpeechPad.caller = this.gameObject;
                 currentSpeechPad.Action3();
             }
         }
@@ -104,6 +109,8 @@ public class Player : MonoBehaviour {
             timeOutOfLine = 0;
             GetComponentInChildren<ExclamationPoint>().SetStatus(false, 0);
         }
+
+        goalCheck();
     }
 
     // Moves the Player or an NPC while colliding with walls and NPCs.
@@ -139,5 +146,24 @@ public class Player : MonoBehaviour {
                 }
             }
         }
+    }
+
+    public void goalCheck()
+    {
+        Vector2 size = GetComponent<BoxCollider2D>().size * transform.lossyScale.x;
+        string[] despawnLayers = { "Goal" };
+        Collider2D goalCollision = Physics2D.OverlapBox(transform.position, size, 0, LayerMask.GetMask(despawnLayers));
+        if (goalCollision && (goalCollision.GetComponent<Goal>().isOpen || hasKey && goalCollision.GetComponent<Goal>().keyDoor))
+        {
+            goalCollision.gameObject.GetComponent<Goal>().isOpen = false;
+            Debug.Log("Won the level");
+            Destroy(this.gameObject);
+        }
+    }
+
+    public void giveKey()
+    {
+        hasKey = true;
+        GetComponentInChildren<Key>().SetStatus(true);
     }
 }
