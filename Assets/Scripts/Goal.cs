@@ -7,6 +7,7 @@ public class Goal : MonoBehaviour {
     [SerializeField]
     private SpriteRenderer goalSprite;
     public bool isOpen = false;
+    public bool keyDoor = true;
 	// Use this for initialization
 	void Start () {
 		

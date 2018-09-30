@@ -25,17 +25,19 @@ public class NPC : MonoBehaviour {
     public int blocked = 0;
     private PlayerSprite playerSprite;
 
+    public bool hasKey;
+
     // Use this for initialization
     void Start () {
         moveLocation = transform.position;
         populateDirections();
         moveTimer = Random.Range(0, moveThreshold / 4);
-        playerSprite = GetComponent<PlayerSprite>();
-	}
+    }
 	
 	// Update is called once per frame
 	void Update () {
-		if (!testSpoken && Mathf.Floor(Time.time) % 5 == 2) {
+        playerSprite = GetComponent<PlayerSprite>();
+        if (!testSpoken && Mathf.Floor(Time.time) % 5 == 2) {
             testSpoken = true;
             GetComponentInChildren<Speech>().Speak(0);
         }
@@ -62,7 +64,7 @@ public class NPC : MonoBehaviour {
         Collider2D playerCollision = Physics2D.OverlapBox(transform.position, size, 0, LayerMask.GetMask(collisionLayers));
         if (playerCollision)
         {
-            Player.Move(playerCollision.gameObject, (playerCollision.transform.position - this.transform.position).normalized * 5f); 
+            Player.Move(playerCollision.gameObject, (playerCollision.transform.position - this.transform.position).normalized * 8f); 
         }
     }
 
@@ -106,18 +108,22 @@ public class NPC : MonoBehaviour {
             GetComponentInChildren<Speech>().Speak(speechChoice);
             if(speechChoice == 0)
             {
+                currentSpeechPad.caller = this.gameObject;
                 currentSpeechPad.Action0();
             }
             if (speechChoice == 1)
             {
+                currentSpeechPad.caller = this.gameObject;
                 currentSpeechPad.Action1();
             }
             if (speechChoice == 2)
             {
+                currentSpeechPad.caller = this.gameObject;
                 currentSpeechPad.Action2();
             }
             if (speechChoice == 3)
             {
+                currentSpeechPad.caller = this.gameObject;
                 currentSpeechPad.Action3();
             }
             spokeLastTurn = true;
@@ -145,10 +151,16 @@ public class NPC : MonoBehaviour {
         }
         string[] despawnLayers = { "Goal" };
         Collider2D goalCollision = Physics2D.OverlapBox(transform.position, size, 0, LayerMask.GetMask(despawnLayers));
-        if (goalCollision)
+        if (goalCollision && (goalCollision.GetComponent<Goal>().isOpen || hasKey && goalCollision.GetComponent<Goal>().keyDoor))
         {
             goalCollision.gameObject.GetComponent<Goal>().isOpen = false;
             Destroy(this.gameObject);
         }
+    }
+
+    public void giveKey()
+    {
+        hasKey = true;
+        GetComponentInChildren<Key>().SetStatus(true);
     }
 }

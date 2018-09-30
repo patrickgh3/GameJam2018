@@ -6,6 +6,7 @@ public class Player : MonoBehaviour {
 
     SpeechPad currentSpeechPad;
     private bool frozen = false;
+    private bool hasKey = true;
     private float timeOutOfLine = 0;
     private const float timeUntilCaught = 0.75f;
 
@@ -46,6 +47,7 @@ public class Player : MonoBehaviour {
             GetComponentInChildren<Speech>().Speak(0);
             if(currentSpeechPad)
             {
+                currentSpeechPad.caller = this.gameObject;
                 currentSpeechPad.Action0();
             }
         }
@@ -53,6 +55,7 @@ public class Player : MonoBehaviour {
             GetComponentInChildren<Speech>().Speak(1);
             if (currentSpeechPad)
             {
+                currentSpeechPad.caller = this.gameObject;
                 currentSpeechPad.Action1();
             }
         }
@@ -60,6 +63,7 @@ public class Player : MonoBehaviour {
             GetComponentInChildren<Speech>().Speak(2);
             if (currentSpeechPad)
             {
+                currentSpeechPad.caller = this.gameObject;
                 currentSpeechPad.Action2();
             }
         }
@@ -67,6 +71,7 @@ public class Player : MonoBehaviour {
             GetComponentInChildren<Speech>().Speak(3);
             if (currentSpeechPad)
             {
+                currentSpeechPad.caller = this.gameObject;
                 currentSpeechPad.Action3();
             }
         }
@@ -98,7 +103,7 @@ public class Player : MonoBehaviour {
             timeOutOfLine = 0;
             exclamation.SetStatus(false, 0);
         }
-
+        goalCheck();
         if (Input.GetKeyDown(KeyCode.R)) {
             frozen = true;
             World.Instance.StartFade(true, "");
@@ -138,5 +143,24 @@ public class Player : MonoBehaviour {
                 }
             }
         }
+    }
+
+    public void goalCheck()
+    {
+        Vector2 size = GetComponent<BoxCollider2D>().size * transform.lossyScale.x;
+        string[] despawnLayers = { "Goal" };
+        Collider2D goalCollision = Physics2D.OverlapBox(transform.position, size, 0, LayerMask.GetMask(despawnLayers));
+        if (goalCollision && (goalCollision.GetComponent<Goal>().isOpen || hasKey && goalCollision.GetComponent<Goal>().keyDoor))
+        {
+            goalCollision.gameObject.GetComponent<Goal>().isOpen = false;
+            Debug.Log("Won the level");
+            Destroy(this.gameObject);
+        }
+    }
+
+    public void giveKey()
+    {
+        hasKey = true;
+        GetComponentInChildren<Key>().SetStatus(true);
     }
 }
