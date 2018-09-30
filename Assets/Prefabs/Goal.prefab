@@ -22,6 +22,7 @@ GameObject:
   - component: {fileID: 212880587057604174}
   - component: {fileID: 61053681743276670}
   - component: {fileID: 114104536504531100}
+  - component: {fileID: 114334126119638010}
   m_Layer: 13
   m_Name: Goal
   m_TagString: Untagged
@@ -80,6 +81,18 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   goalSprite: {fileID: 212880587057604174}
   isOpen: 0
+  keyDoor: 1
+--- !u!114 &114334126119638010
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1180815724580800}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 70dd2a94fcd016948af9f56854089bd6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!212 &212880587057604174
 SpriteRenderer:
   m_ObjectHideFlags: 1

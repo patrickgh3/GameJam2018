@@ -22,6 +22,7 @@ GameObject:
   - component: {fileID: 212514680302367496}
   - component: {fileID: 61795759139607964}
   - component: {fileID: 50620285555356956}
+  - component: {fileID: 114884515402609352}
   - component: {fileID: 114126756150333050}
   m_Layer: 12
   m_Name: GateOpen
@@ -78,7 +79,7 @@ BoxCollider2D:
   m_Offset: {x: 0, y: 0}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
-    pivot: {x: 0.5, y: 0.5}
+    pivot: {x: 0.5, y: 0}
     oldSize: {x: 1, y: 1}
     newSize: {x: 1.28, y: 1.28}
     adaptiveTilingThreshold: 0.5
@@ -100,7 +101,19 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   validActions: 
+  caller: {fileID: 0}
   Goal: {fileID: 0}
+--- !u!114 &114884515402609352
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1391081095523654}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 70dd2a94fcd016948af9f56854089bd6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!212 &212514680302367496
 SpriteRenderer:
   m_ObjectHideFlags: 1

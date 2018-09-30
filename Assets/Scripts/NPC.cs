@@ -64,7 +64,7 @@ public class NPC : MonoBehaviour {
         Collider2D playerCollision = Physics2D.OverlapBox(transform.position, size, 0, LayerMask.GetMask(collisionLayers));
         if (playerCollision)
         {
-            Player.Move(playerCollision.gameObject, (playerCollision.transform.position - this.transform.position).normalized * 5f); 
+            Player.Move(playerCollision.gameObject, (playerCollision.transform.position - this.transform.position).normalized * 8f); 
         }
     }
 

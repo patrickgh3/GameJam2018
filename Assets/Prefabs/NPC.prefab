@@ -292,10 +292,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   direction: 4
-  moveAmount: 100
+  moveAmount: 20
   moveTimer: 0
-  moveThreshold: 1
-  actionCheckTime: 0.5
+  moveThreshold: 0.25
+  actionCheckTime: 0.1
   moveSpeed: 200
   spriteSize: 50
   moveLocation: {x: 0, y: 0, z: 0}

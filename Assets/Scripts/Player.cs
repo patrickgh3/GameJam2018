@@ -16,7 +16,6 @@ public class Player : MonoBehaviour {
     private PlayerSprite playerSprite;
 
     void Start() {
-        GetComponentInChildren<Key>().SetStatus(false);
         playerSprite = GetComponent<PlayerSprite>();
 	}
 	
