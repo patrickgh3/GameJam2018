@@ -9,6 +9,7 @@ public class Player : MonoBehaviour {
     private bool hasKey = true;
     private float timeOutOfLine = 0;
     private const float timeUntilCaught = 0.75f;
+    public bool moving = false;
 
     [SerializeField] private AnimationClip idleAnim;
     [SerializeField] private AnimationClip walkAnim;
@@ -26,6 +27,15 @@ public class Player : MonoBehaviour {
         float horiz = Input.GetAxisRaw("Horizontal");
         float vert = Input.GetAxisRaw("Vertical");
         Vector3 toMove = new Vector3(horiz * moveSpeed, vert * moveSpeed);
+
+        if (toMove != Vector3.zero)
+        {
+            moving = true;
+        }
+        else
+        {
+            moving = false;
+        }
         Move(gameObject, toMove);
 
         GetComponent<PlayerSprite>().Animate(toMove);
@@ -87,7 +97,19 @@ public class Player : MonoBehaviour {
 
             GetComponentInChildren<ExclamationPoint>().SetStatus(true, timeOutOfLine / timeUntilCaught);
         }
-        else {
+        else if (Physics2D.OverlapBox(transform.position, size, 0, LayerMask.GetMask(new string[] { "MoveDeath" })) && moving)
+        {
+            timeOutOfLine += Time.deltaTime*100f;
+            if (timeOutOfLine > timeUntilCaught)
+            {
+                frozen = true;
+                World.Instance.StartFade(true, "");
+            }
+
+            GetComponentInChildren<ExclamationPoint>().SetStatus(true, timeOutOfLine / timeUntilCaught);
+        }
+        else
+        {
             timeOutOfLine = 0;
             GetComponentInChildren<ExclamationPoint>().SetStatus(false, 0);
         }

@@ -36,13 +36,21 @@ public class NPC : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-        playerSprite = GetComponent<PlayerSprite>();
-        if (!testSpoken && Mathf.Floor(Time.time) % 5 == 2) {
-            testSpoken = true;
-            GetComponentInChildren<Speech>().Speak(0);
+        if (GlobalBell.bellActive)
+        {
+            playerSprite.Animate(Vector2.zero);
         }
-        checkMovement();
-        checkDirection();
+        else
+        {
+            playerSprite = GetComponent<PlayerSprite>();
+            if (!testSpoken && Mathf.Floor(Time.time) % 5 == 2)
+            {
+                testSpoken = true;
+                GetComponentInChildren<Speech>().Speak(0);
+            }
+            checkMovement();
+            checkDirection();
+        }
 	}
 
     void checkMovement()
