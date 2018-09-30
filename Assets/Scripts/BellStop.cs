@@ -12,6 +12,7 @@ public class BellStop : MonoBehaviour {
     [SerializeField]
     private GameObject moveDeathObject;
     private World world;
+    public Animator BellAnimator;
 	// Use this for initialization
 	void Start () {
         moveDeathObject.GetComponent<BoxCollider2D>().enabled = false;
@@ -47,6 +48,7 @@ public class BellStop : MonoBehaviour {
                 world.PlaySound(World.Clip.Bell);
                 bellTimer = 0;
                 bellActive = true;
+                if (BellAnimator != null) BellAnimator.Play("Ring");
             }
         }
     }

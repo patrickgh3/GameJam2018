@@ -58,7 +58,7 @@ public class World : MonoBehaviour {
         }
 
         // Ctrl-M to mute and unmute music
-        if (Input.GetKeyDown(KeyCode.M) && (Input.GetKey(KeyCode.LeftControl) || Input.GetKey(KeyCode.LeftControl))) {
+        if (Input.GetKeyDown(KeyCode.M) && (Input.GetKey(KeyCode.LeftControl) || Input.GetKey(KeyCode.RightControl))) {
             musicMuted = !musicMuted;
             UpdateMusic();
         }
@@ -167,38 +167,50 @@ public class World : MonoBehaviour {
     public AudioClip windLoop;
 
     private void UpdateMusic() {
-        if (musicMuted) {
+        if (musicMuted)
+        {
             music.Stop();
             ambiance.Stop();
         }
+        else
+        {
+            if (SceneManager.GetActiveScene().name == "Title")
+            {
+                if (music.clip != titleLoop)
+                {
+                    music.clip = titleLoop;
+                    music.Play();
+                }
+                if (!music.isPlaying) music.Play();
 
-        if (SceneManager.GetActiveScene().name == "Title") {
-            if (music.clip != titleLoop) {
-                music.clip = titleLoop;
-                music.Play();
+                ambiance.Stop();
             }
-            if (!music.isPlaying) music.Play();
+            else if (SceneManager.GetActiveScene().name == "Ritual")
+            {
+                music.Stop();
 
-            ambiance.Stop();
-        }
-        else if (SceneManager.GetActiveScene().name == "Ritual") {
-            music.Stop();
-
-            if (ambiance.clip != windLoop) {
-                ambiance.clip = windLoop;
-                ambiance.Play();
+                if (ambiance.clip != windLoop)
+                {
+                    ambiance.clip = windLoop;
+                    ambiance.Play();
+                }
+                if (!ambiance.isPlaying) ambiance.Play();
             }
-        }
-        else {
-            if (music.clip != drumLoop) {
-                music.clip = drumLoop;
-                music.Play();
-            }
-            if (!music.isPlaying) music.Play();
+            else
+            {
+                if (music.clip != drumLoop)
+                {
+                    music.clip = drumLoop;
+                    music.Play();
+                }
+                if (!music.isPlaying) music.Play();
 
-            if (ambiance.clip != ambientLoop) {
-                ambiance.clip = ambientLoop;
-                ambiance.Play();
+                if (ambiance.clip != ambientLoop)
+                {
+                    ambiance.clip = ambientLoop;
+                    ambiance.Play();
+                }
+                if (!ambiance.isPlaying) ambiance.Play();
             }
         }
     }
