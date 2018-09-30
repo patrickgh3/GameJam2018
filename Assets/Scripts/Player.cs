@@ -13,9 +13,11 @@ public class Player : MonoBehaviour {
     [SerializeField] private AnimationClip walkAnim;
 
     private PlayerSprite playerSprite;
+    private ExclamationPoint exclamation;
 
     void Start() {
         playerSprite = GetComponent<PlayerSprite>();
+        exclamation = GetComponentInChildren<ExclamationPoint>();
 	}
 	
 	void FixedUpdate() {
@@ -80,11 +82,21 @@ public class Player : MonoBehaviour {
                 World.Instance.StartFade(true, "");
             }
 
-            GetComponentInChildren<ExclamationPoint>().SetStatus(true, timeOutOfLine / timeUntilCaught);
+            float exValue = timeOutOfLine / timeUntilCaught;
+            foreach (Collider2D collider in Physics2D.OverlapCircleAll(transform.position, size.x * 7, LayerMask.GetMask(new string[] { "NPC" }))) {
+                ExclamationPoint ex = collider.GetComponentInChildren<ExclamationPoint>();
+                ex.SetStatus(true, exValue);
+            }
+            exclamation.SetStatus(true, exValue);
         }
         else {
+            if (timeOutOfLine != 0) {
+                foreach (ExclamationPoint ex in FindObjectsOfType<ExclamationPoint>()) {
+                    ex.SetStatus(false, 0);
+                }
+            }
             timeOutOfLine = 0;
-            GetComponentInChildren<ExclamationPoint>().SetStatus(false, 0);
+            exclamation.SetStatus(false, 0);
         }
 
         if (Input.GetKeyDown(KeyCode.R)) {
