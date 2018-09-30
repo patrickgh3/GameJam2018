@@ -8,7 +8,6 @@ public class NPC : MonoBehaviour {
     int speechChoice = 0;
     bool spokeLastTurn = false;
     bool speakNextTurn = false;
-    bool testSpoken = false;
     //determines current direction for movement. Defined by directions enum
     public int direction = (int)Directions.RIGHT;
     private Vector2[] directions = new Vector2[8];
@@ -32,15 +31,11 @@ public class NPC : MonoBehaviour {
         moveLocation = transform.position;
         populateDirections();
         moveTimer = Random.Range(0, moveThreshold / 4);
+        playerSprite = GetComponent<PlayerSprite>();
     }
 	
 	// Update is called once per frame
 	void Update () {
-        playerSprite = GetComponent<PlayerSprite>();
-        if (!testSpoken && Mathf.Floor(Time.time) % 5 == 2) {
-            testSpoken = true;
-            GetComponentInChildren<Speech>().Speak(0);
-        }
         checkMovement();
         checkDirection();
 	}
