@@ -14,8 +14,11 @@ TagManager:
   - 
   - 
   - Player
-  - Walls
-  - NPCs
+  - Wall
+  - NPC
+  - Path
+  - Interactable
+  - Goal
   - Death
   - 
   - 

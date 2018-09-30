@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class Player : MonoBehaviour {
 
+    SpeechPad currentSpeechPad;
     private bool frozen = false;
     private float timeOutOfLine = 0;
     private const float timeUntilCaught = 1f;
@@ -46,24 +47,50 @@ public class Player : MonoBehaviour {
             GetComponent<SpriteRenderer>().flipX = (horiz < 0);
         }
 
+        Vector2 size = GetComponent<BoxCollider2D>().size * transform.lossyScale.x;
+        string[] actionLayers = { "Interactable" };
+        Collider2D actionCollision = Physics2D.OverlapBox(transform.position, size, 0, LayerMask.GetMask(actionLayers));
+        if (actionCollision)
+        {
+            currentSpeechPad = actionCollision.GetComponent<SpeechPad>();
+        }
+        else
+        {
+            currentSpeechPad = null;
+        }
         if (Input.GetButtonDown("Speak1")) {
             GetComponentInChildren<Speech>().Speak(0);
+            if(currentSpeechPad)
+            {
+                currentSpeechPad.Action0();
+            }
         }
         if (Input.GetButtonDown("Speak2")) {
             GetComponentInChildren<Speech>().Speak(1);
+            if (currentSpeechPad)
+            {
+                currentSpeechPad.Action1();
+            }
         }
         if (Input.GetButtonDown("Speak3")) {
             GetComponentInChildren<Speech>().Speak(2);
+            if (currentSpeechPad)
+            {
+                currentSpeechPad.Action2();
+            }
         }
         if (Input.GetButtonDown("Speak4")) {
             GetComponentInChildren<Speech>().Speak(3);
+            if (currentSpeechPad)
+            {
+                currentSpeechPad.Action3();
+            }
         }
 
         if (Input.GetKeyDown("1")) playerColor = PlayerColor.Black;
         if (Input.GetKeyDown("2")) playerColor = PlayerColor.Blue;
         if (Input.GetKeyDown("3")) playerColor = PlayerColor.Red;
 
-        Vector2 size = GetComponent<BoxCollider2D>().size * transform.lossyScale.x;
         if (Physics2D.OverlapBox(transform.position, size, 0, LayerMask.GetMask(new string[] { "Death" }))) {
             timeOutOfLine += Time.deltaTime;
             if (timeOutOfLine > timeUntilCaught) {
