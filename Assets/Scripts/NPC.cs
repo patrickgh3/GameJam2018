@@ -15,6 +15,7 @@ public class NPC : MonoBehaviour {
     private float actionCheckTime;
     [SerializeField]
     private float actionTimeNecessary;
+    private GameObject gateObject;
     private float moveSpeed;
     public float spriteSize;
     private string[] collisionLayers = { "Player", "NPC"};
@@ -25,6 +26,7 @@ public class NPC : MonoBehaviour {
 
     // Use this for initialization
     void Start () {
+        gateObject = GameObject.FindGameObjectWithTag("Finish");
         populateDirections();
         playerSprite = GetComponent<PlayerSprite>();
     }
@@ -149,6 +151,7 @@ public class NPC : MonoBehaviour {
         if (goalCollision && (goalCollision.GetComponent<Goal>().isOpen || hasKey && goalCollision.GetComponent<Goal>().keyDoor))
         {
             goalCollision.gameObject.GetComponent<Goal>().isOpen = false;
+            gateObject.GetComponent<Animator>().SetTrigger("gateOpen");
             Destroy(this.gameObject);
         }
     }
