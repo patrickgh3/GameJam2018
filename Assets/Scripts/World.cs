@@ -23,6 +23,7 @@ public class World : MonoBehaviour {
 
     private AudioSource ambiance;
     private AudioSource music;
+    private AudioSource wind;
 
     private void Start() {
         if (Instance == null) {
@@ -30,6 +31,7 @@ public class World : MonoBehaviour {
             DontDestroyOnLoad(gameObject);
             ambiance = GameObject.Find("Ambiance").GetComponent<AudioSource>();
             music = GameObject.Find("Music").GetComponent<AudioSource>();
+            wind = GameObject.Find("Wind").GetComponent<AudioSource>();
         }
         else {
             Destroy(this);
@@ -42,8 +44,18 @@ public class World : MonoBehaviour {
             if (fadeTime > fadeLength * 1.5f) {
                 fadeState = FadeState.FromBlack;
                 SceneManager.LoadScene(toScene);
+
                 if (startMusicNextScene) {
                     startMusicNextScene = false;
+                }
+
+                if (SceneManager.GetActiveScene().name == "Ritual") {
+                    EnableMusic(false);
+                    if (!wind.isPlaying) wind.Play();
+                }
+                else {
+                    EnableMusic(true);
+                    if (wind.isPlaying) wind.Stop();
                 }
             }
         }
@@ -71,7 +83,7 @@ public class World : MonoBehaviour {
         if (Input.GetKeyDown(KeyCode.PageUp) && curScene < numScenes - 1) {
             SceneManager.LoadScene(curScene + 1);
         }
-        else if (Input.GetKeyDown(KeyCode.PageUp) && curScene > 0) {
+        else if (Input.GetKeyDown(KeyCode.PageDown) && curScene > 0) {
             SceneManager.LoadScene(curScene - 1);
         }
     }
@@ -97,6 +109,14 @@ public class World : MonoBehaviour {
         }
     }
 
+    public void LoadNextLevel()
+    {
+        int curScene = SceneManager.GetActiveScene().buildIndex;
+        fadeState = FadeState.ToBlack;
+        fadeTime = 0;
+        SceneManager.LoadScene(curScene + 1);
+    }
+
     public void Freeze() {
         Player player = FindObjectOfType<Player>();
         player.GetComponent<PlayerSprite>().Animate(Vector2.zero);
@@ -114,7 +134,7 @@ public class World : MonoBehaviour {
             music.Play();
             if (!ambiance.isPlaying) ambiance.Play();
         }
-        else if (musicPlaying && !enabled) {
+        else if (!enabled) {
             music.Stop();
             ambiance.Stop();
         }
@@ -129,6 +149,7 @@ public class World : MonoBehaviour {
         GateOpen,
         Exclamation,
         Bell,
+        Sacrifice,
     }
 
     public AudioClip Speech1;
@@ -138,8 +159,10 @@ public class World : MonoBehaviour {
     public AudioClip GateOpen;
     public AudioClip Exclamation;
     public AudioClip Bell;
-    public AudioClip Ambiance;
-    public AudioClip Music;
+    public AudioClip Sacrifice;
+
+    public AudioClip drumsClip;
+    public AudioClip windClip;
 
     public void PlaySound(Clip clip) {
         AudioClip audioClip = null;
@@ -152,6 +175,7 @@ public class World : MonoBehaviour {
             case Clip.GateOpen: audioClip = GateOpen; volume = 1; break;
             case Clip.Exclamation: audioClip = Exclamation; volume = 1; break;
             case Clip.Bell: audioClip = Bell; volume = 1; break;
+            case Clip.Sacrifice: audioClip = Sacrifice; volume = 0.5f; break;
         }
         GetComponent<AudioSource>().PlayOneShot(audioClip, volume);
     }

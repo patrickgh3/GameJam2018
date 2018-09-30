@@ -16,7 +16,8 @@ public class Title : MonoBehaviour {
 	// Update is called once per frame
 	void Update () {
 	    if (Input.anyKeyDown && !started) {
-            World.Instance.StartFade(false, startScene.name);
+            // World.Instance.StartFade(false, startScene.name);
+            World.Instance.LoadNextLevel();
             World.Instance.EnableMusic(true);
             started = true;
         }

@@ -36,7 +36,7 @@ public class Player : MonoBehaviour {
             if (despawnCollision)
             {
                 gateObject.GetComponent<Animator>().SetTrigger("gateClose");
-                World.Instance.StartFade(false, SceneManager.GetSceneByBuildIndex(SceneManager.GetActiveScene().buildIndex + 1).name);
+                World.Instance.LoadNextLevel();
             }
         }
         else
@@ -159,6 +159,14 @@ public class Player : MonoBehaviour {
             if (Input.GetKeyDown(KeyCode.R)) {
                 frozen = true;
                 World.Instance.StartFade(true, "");
+            }
+
+            // Sacrifice trigger
+            if (Physics2D.OverlapBox(transform.position, size, 0, LayerMask.GetMask(new string[] { "SacrificeTrigger" }))) {
+                gameObject.AddComponent<Sacrifice>();
+                frozen = true;
+                playerSprite.Animate(Vector2.zero);
+                World.Instance.PlaySound(World.Clip.Sacrifice);
             }
         }
     }
