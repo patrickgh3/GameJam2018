@@ -96,7 +96,7 @@ public class NPC : MonoBehaviour {
         }
         else
         {
-            GetComponent<Speech>().Speak(speechChoice);
+            GetComponentInChildren<Speech>().Speak(speechChoice);
             if(speechChoice == 0)
             {
                 currentSpeechPad.Action0();
@@ -131,7 +131,6 @@ public class NPC : MonoBehaviour {
         Collider2D actionCollision = Physics2D.OverlapBox(transform.position, size, 0, LayerMask.GetMask(actionLayers));
         if (actionCollision && !spokeLastTurn)
         {
-            Debug.Log("CollidedAction");
             speakNextTurn = true;
             int[] validActions = actionCollision.GetComponent<SpeechPad>().validActions;
             speechChoice = validActions[(int)Random.Range(0, validActions.Length)];
