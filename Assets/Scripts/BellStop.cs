@@ -36,6 +36,7 @@ public class BellStop : MonoBehaviour {
             }
             if(bellTimer > bellStopThreshhold)
             {
+                if (BellAnimator != null) BellAnimator.SetTrigger("BellStop");
                 bellTimer = 0;
                 bellActive = false;
                 moveDeathObject.GetComponent<BoxCollider2D>().enabled = false;
@@ -48,7 +49,7 @@ public class BellStop : MonoBehaviour {
                 world.PlaySound(World.Clip.Bell);
                 bellTimer = 0;
                 bellActive = true;
-                if (BellAnimator != null) BellAnimator.Play("Ring");
+                if (BellAnimator != null) BellAnimator.SetTrigger("BellTrigger");
             }
         }
     }
