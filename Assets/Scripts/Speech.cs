@@ -50,5 +50,14 @@ public class Speech : MonoBehaviour {
         transform.localScale = speechScale * 1.4f;
         speaking = true;
         speakStartTime = Time.time;
+
+        World.Clip clip = World.Clip.Speech1;
+        switch (symbolNum) {
+            case 0: clip = World.Clip.Speech1; break;
+            case 1: clip = World.Clip.Speech2; break;
+            case 2: clip = World.Clip.Speech3; break;
+            case 3: clip = World.Clip.Speech4; break;
+        }
+        World.Instance.PlaySound(clip);
     }
 }
