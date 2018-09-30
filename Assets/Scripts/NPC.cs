@@ -56,8 +56,9 @@ public class NPC : MonoBehaviour {
         }
         else
         {
-            moveSpeed = speed * Time.deltaTime;
-            move(moveSpeed * directions[(int)Directions.UP]);
+            float moveSpeed = 300f * Time.deltaTime;
+            Vector3 toMove = new Vector3(Mathf.Round((moveSpeed * Vector3.up).x), Mathf.Round((moveSpeed * Vector3.up).y));
+            gameObject.transform.position += toMove;
             string[] despawnLayers = { "Despawn" };
             Collider2D despawnCollision = Physics2D.OverlapBox(transform.position, size, 0, LayerMask.GetMask(despawnLayers));
             if (despawnCollision)
@@ -147,7 +148,7 @@ public class NPC : MonoBehaviour {
         }
         string[] actionLayers = { "Interactable" };
         Collider2D actionCollision = Physics2D.OverlapBox(transform.position, size, 0, LayerMask.GetMask(actionLayers));
-        if (actionCollision && actionCollision.GetComponent<SpeechPad>() != currentSpeechPad)
+        if (actionCollision && actionCollision.GetComponent<SpeechPad>() && actionCollision.GetComponent<SpeechPad>() != currentSpeechPad)
         {
             actionCheckTime = actionTimeNecessary;
             playerSprite.Animate(Vector2.zero);
@@ -175,6 +176,11 @@ public class NPC : MonoBehaviour {
                 currentSpeechPad.caller = this.gameObject;
                 currentSpeechPad.Action3();
             }
+        }
+        //placeholder for gate opener
+        else if(actionCollision)
+        {
+            GameObject.Find("Goal").GetComponent<Goal>().isOpen = true;
         }
         string[] goalLayers = { "Goal" };
         Collider2D goalCollision = Physics2D.OverlapBox(transform.position, size, 0, LayerMask.GetMask(goalLayers));
