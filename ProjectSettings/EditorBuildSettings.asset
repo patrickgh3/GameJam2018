@@ -11,9 +11,15 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/Levels/Starting_level.unity
     guid: c4a0da106a6af33428e5bc6e07fbe87f
-  - enabled: 0
-    path: Assets/Scenes/BasicLine.unity
-    guid: 557be8965b8f6eb45b0610aafa3927be
+  - enabled: 1
+    path: Assets/Scenes/Levels/story_level.unity
+    guid: 56a58ef71816b6642af700e6f64c46f9
+  - enabled: 1
+    path: Assets/Scenes/Levels/lvl3_dodge.unity
+    guid: 67b84f134943a254f9c3cc23fc4e1ce4
   - enabled: 1
     path: Assets/Scenes/Levels/lvl4_talk.unity
     guid: ce6ae7db457d29c48a8c73b0522ae06c
+  - enabled: 0
+    path: Assets/Scenes/BasicLine.unity
+    guid: 557be8965b8f6eb45b0610aafa3927be

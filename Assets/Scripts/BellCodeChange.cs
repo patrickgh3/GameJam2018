@@ -6,8 +6,6 @@ public class BellCodeChange : MonoBehaviour {
 
     public float bellThreshhold;
     public float bellTimer;
-    [SerializeField]
-    private GameObject moveDeathObject;
     private World world;
     // Use this for initialization
     void Start()

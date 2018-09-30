@@ -115,8 +115,8 @@ public class NPC : MonoBehaviour {
     {
 
 
-        Vector2 perpendicular = (Quaternion.Euler(0, 0, 90) * directions[direction]) * spriteSize;
-        Vector2 parallel = directions[direction] * spriteSize;
+        Vector2 perpendicular = (Quaternion.Euler(0, 0, 90) * directions[direction]) * spriteSize*1.5f;
+        Vector2 parallel = directions[direction] * spriteSize*1.5f;
         Debug.DrawRay(transform.position + new Vector3(parallel.x, parallel.y, transform.position.z), delta, Color.red);
         if (Physics2D.Raycast(transform.position + new Vector3(parallel.x, parallel.y, transform.position.z), delta, spriteSize * 2, LayerMask.GetMask(collisionLayers)).collider == null &&
             Physics2D.Raycast(transform.position + new Vector3(parallel.x, parallel.y, transform.position.z) - (new Vector3(perpendicular.x, perpendicular.y, transform.position.z)), delta,
