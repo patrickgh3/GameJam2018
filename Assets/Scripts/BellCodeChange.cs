@@ -32,6 +32,7 @@ public class BellCodeChange : MonoBehaviour {
                 {
                     inspector.symbolCycle[i] = (inspector.symbolCycle[i] + 2) % 4;
                 }
+                inspector.Revalidate();
             }
         }
     }
