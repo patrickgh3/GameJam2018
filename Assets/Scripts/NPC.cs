@@ -23,6 +23,7 @@ public class NPC : MonoBehaviour {
     private PlayerSprite playerSprite;
     private bool lockMovement = false;
     public float speed = 300f;
+    private bool sacrificed = false;
 
     public bool hasKey;
 
@@ -36,6 +37,9 @@ public class NPC : MonoBehaviour {
 	// Update is called once per frame
 
 	protected void Update () {
+        if (sacrificed) return;
+
+        Vector2 size = GetComponent<BoxCollider2D>().size * transform.lossyScale.x;
         if (!lockMovement)
         {
             moveSpeed = speed * Time.deltaTime;
@@ -56,7 +60,6 @@ public class NPC : MonoBehaviour {
             Vector3 toMove = new Vector3(Mathf.Round((moveSpeed * Vector3.up).x), Mathf.Round((moveSpeed * Vector3.up).y));
             gameObject.transform.position += toMove;
             string[] despawnLayers = { "Despawn" };
-            Vector2 size = GetComponent<BoxCollider2D>().size * transform.lossyScale.x;
             Collider2D despawnCollision = Physics2D.OverlapBox(transform.position, size, 0, LayerMask.GetMask(despawnLayers));
             if (despawnCollision)
             {
@@ -65,7 +68,14 @@ public class NPC : MonoBehaviour {
             }
         }
 
-	}
+        // Sacrifice trigger
+        if (!sacrificed && Physics2D.OverlapBox(transform.position, size, 0, LayerMask.GetMask(new string[] { "SacrificeTrigger" }))) {
+            gameObject.AddComponent<Sacrifice>();
+            sacrificed = true;
+            playerSprite.Animate(Vector2.zero);
+            World.Instance.PlaySound(World.Clip.Sacrifice);
+        }
+    }
 
     void checkMovement()
     {
