@@ -292,13 +292,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   direction: 4
-  moveAmount: 400
-  moveTimer: 0
   moveThreshold: 2
-  actionCheckTime: 0.5
-  moveSpeed: 200
+  actionTimeNecessary: 1
   spriteSize: 50
-  moveLocation: {x: 0, y: 0, z: 0}
   blocked: 0
   hasKey: 0
 --- !u!114 &114423780116433308
