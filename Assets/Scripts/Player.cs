@@ -3,7 +3,8 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
-public class Player : MonoBehaviour {
+public class Player : MonoBehaviour
+{
 
     SpeechPad currentSpeechPad;
     public bool frozen = false;
@@ -13,21 +14,36 @@ public class Player : MonoBehaviour {
     public bool moving = false;
     private bool lockMovement = false;
     private GameObject gateObject;
+    private float speed;
+    [SerializeField]
+    private float walkSpeed;
+    [SerializeField]
+    private float runSpeed;
 
     private PlayerSprite playerSprite;
     private ExclamationPoint exclamation;
 
-    void Start() {
+    void Start()
+    {
+        hasKey = false;
         gateObject = GameObject.FindGameObjectWithTag("Finish");
         playerSprite = GetComponent<PlayerSprite>();
         exclamation = GetComponentInChildren<ExclamationPoint>();
-	}
+    }
 
     void FixedUpdate()
     {
+        if (Input.GetButton("Run"))
+        {
+            speed = runSpeed;
+        }
+        else
+        {
+            speed = walkSpeed;
+        }
         if (lockMovement)
         {
-            float moveSpeed = 300f * Time.deltaTime;
+            float moveSpeed = speed * Time.deltaTime;
             Vector3 toMove = new Vector3(Mathf.Round((moveSpeed * Vector3.up).x), Mathf.Round((moveSpeed * Vector3.up).y));
             gameObject.transform.position += toMove;
             string[] despawnLayers = { "Despawn" };
@@ -43,7 +59,7 @@ public class Player : MonoBehaviour {
         {
             if (frozen) return;
 
-            float moveSpeed = 300f * Time.deltaTime;
+            float moveSpeed = speed * Time.deltaTime;
             float horiz = Input.GetAxisRaw("Horizontal");
             float vert = Input.GetAxisRaw("Vertical");
             Vector3 toMove = new Vector3(horiz * moveSpeed, vert * moveSpeed);
@@ -68,7 +84,7 @@ public class Player : MonoBehaviour {
                 currentSpeechPad = actionCollision.GetComponent<SpeechPad>();
             }
             //for gate open (Interactable, but doesn't have a speech pad)
-            else if(actionCollision)
+            else if (actionCollision && actionCollision.name == "GateOpen")
             {
                 GameObject.Find("Goal").GetComponent<Goal>().isOpen = true;
                 currentSpeechPad = null;
@@ -121,7 +137,8 @@ public class Player : MonoBehaviour {
 
             if (Physics2D.OverlapBox(transform.position, size, 0, LayerMask.GetMask(new string[] { "Death" })))
             {
-                if (timeOutOfLine == 0) {
+                if (timeOutOfLine == 0)
+                {
                     World.Instance.PlaySound(World.Clip.Exclamation);
                 }
                 timeOutOfLine += Time.deltaTime;
@@ -141,12 +158,14 @@ public class Player : MonoBehaviour {
             {
                 exclamation.SetStatus(true, 1);
                 World.Instance.Freeze();
-            }       
+            }
             else
             {
-                if (timeOutOfLine != 0) {
+                if (timeOutOfLine != 0)
+                {
                     // Remove all exclamation points
-                    foreach (ExclamationPoint ex in FindObjectsOfType<ExclamationPoint>()) {
+                    foreach (ExclamationPoint ex in FindObjectsOfType<ExclamationPoint>())
+                    {
                         ex.SetStatus(false, 0);
                     }
                 }
@@ -156,13 +175,15 @@ public class Player : MonoBehaviour {
 
             goalCheck();
 
-            if (Input.GetKeyDown(KeyCode.R)) {
+            if (Input.GetKeyDown(KeyCode.R))
+            {
                 frozen = true;
                 World.Instance.StartFade(true, 0, 0);
             }
 
             // Sacrifice trigger
-            if (Physics2D.OverlapBox(transform.position, size, 0, LayerMask.GetMask(new string[] { "SacrificeTrigger" }))) {
+            if (Physics2D.OverlapBox(transform.position, size, 0, LayerMask.GetMask(new string[] { "SacrificeTrigger" })))
+            {
                 gameObject.AddComponent<Sacrifice>();
                 frozen = true;
                 playerSprite.Animate(Vector2.zero);
@@ -173,7 +194,8 @@ public class Player : MonoBehaviour {
     }
 
     // Moves the Player or an NPC while colliding with walls and NPCs.
-    public static void Move(GameObject obj, Vector2 delta) {
+    public static void Move(GameObject obj, Vector2 delta)
+    {
         Vector3 toMove = new Vector3(Mathf.Round(delta.x), Mathf.Round(delta.y));
 
         obj.transform.position += toMove;
