@@ -25,6 +25,7 @@ GameObject:
   - component: {fileID: 50887527857184048}
   - component: {fileID: 95472530501845038}
   - component: {fileID: 114563785781488064}
+  - component: {fileID: 114038806025128678}
   m_Layer: 8
   m_Name: Player
   m_TagString: Untagged
@@ -131,8 +132,8 @@ Transform:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1517715328560404}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 419, y: -319, z: 0}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: -709.15936, y: -316.113, z: 10.674227}
   m_LocalScale: {x: 70, y: 70, z: 1}
   m_Children:
   - {fileID: 4725384664269716}
@@ -202,6 +203,18 @@ Animator:
   m_WarningMessage: 
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
+--- !u!114 &114038806025128678
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1517715328560404}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8854ecc04ff8d1f4e98a002d3dd20a2a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  playerColor: 0
 --- !u!114 &114117293153616450
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -225,8 +238,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c5a44f3ba8559db4fbfbecfc08effec4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  idleAnim: {fileID: 7400000, guid: 254127ab41b2d2f40af1fe27cdf7c8a2, type: 2}
-  walkAnim: {fileID: 7400000, guid: 8f4f98d3629012d4ebbe5817216f34d6, type: 2}
+  idleAnim: {fileID: 0}
+  walkAnim: {fileID: 0}
 --- !u!114 &114183437297442204
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -290,14 +303,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 82cd3e67377daf848bec0233c1fbaf14, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  sprite: {fileID: 0}
-  exclamationSprites:
-  - {fileID: 21300012, guid: a839932bb50833249892b6de982f0b7e, type: 3}
-  - {fileID: 21300014, guid: a839932bb50833249892b6de982f0b7e, type: 3}
-  - {fileID: 21300016, guid: a839932bb50833249892b6de982f0b7e, type: 3}
-  - {fileID: 21300018, guid: a839932bb50833249892b6de982f0b7e, type: 3}
-  - {fileID: 21300020, guid: a839932bb50833249892b6de982f0b7e, type: 3}
-  - {fileID: 21300022, guid: a839932bb50833249892b6de982f0b7e, type: 3}
+  exclamationSprites: []
 --- !u!212 &212480571604888254
 SpriteRenderer:
   m_ObjectHideFlags: 1

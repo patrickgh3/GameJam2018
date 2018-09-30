@@ -23,12 +23,14 @@ public class NPC : MonoBehaviour {
     public Vector3 moveLocation;
     private string[] collisionLayers = { "Player", "NPC"};
     public int blocked = 0;
+    private PlayerSprite playerSprite;
 
     // Use this for initialization
     void Start () {
         moveLocation = transform.position;
         populateDirections();
         moveTimer = Random.Range(0, moveThreshold / 4);
+        playerSprite = GetComponent<PlayerSprite>();
 	}
 	
 	// Update is called once per frame
@@ -51,6 +53,11 @@ public class NPC : MonoBehaviour {
             move(moveAmount * directions[direction]);
         }
         transform.position = Vector3.MoveTowards(transform.position, moveLocation, Time.deltaTime * moveSpeed);
+
+        Vector3 moveDelta = moveLocation - transform.position;
+        if (moveDelta.magnitude < 0.0001f) playerSprite.Animate(Vector2.zero);
+        else playerSprite.Animate(moveDelta);
+
         Vector2 size = GetComponent<BoxCollider2D>().size * transform.lossyScale.x;
         Collider2D playerCollision = Physics2D.OverlapBox(transform.position, size, 0, LayerMask.GetMask(collisionLayers));
         if (playerCollision)

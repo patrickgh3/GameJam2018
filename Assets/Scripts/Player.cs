@@ -9,18 +9,13 @@ public class Player : MonoBehaviour {
     private float timeOutOfLine = 0;
     private const float timeUntilCaught = 1f;
 
-    public enum PlayerColor {
-        Black,
-        Blue,
-        Red,
-    }
-    public PlayerColor playerColor = PlayerColor.Black;
-
     [SerializeField] private AnimationClip idleAnim;
     [SerializeField] private AnimationClip walkAnim;
 
+    private PlayerSprite playerSprite;
+
     void Start() {
-		
+        playerSprite = GetComponent<PlayerSprite>();
 	}
 	
 	void FixedUpdate() {
@@ -32,20 +27,7 @@ public class Player : MonoBehaviour {
         Vector3 toMove = new Vector3(horiz * moveSpeed, vert * moveSpeed);
         Move(gameObject, toMove);
 
-        if (horiz == 0 && vert == 0) {
-            string clip = "BlackIdle";
-            if (playerColor == PlayerColor.Blue) clip = "BlueIdle";
-            if (playerColor == PlayerColor.Red) clip = "RedIdle";
-            GetComponent<Animator>().Play(clip);
-            GetComponent<SpriteRenderer>().flipX = false;
-        }
-        else {
-            string clip = "BlackWalk";
-            if (playerColor == PlayerColor.Blue) clip = "BlueWalk";
-            if (playerColor == PlayerColor.Red) clip = "RedWalk";
-            GetComponent<Animator>().Play(clip);
-            GetComponent<SpriteRenderer>().flipX = (horiz < 0);
-        }
+        GetComponent<PlayerSprite>().Animate(toMove);
 
         Vector2 size = GetComponent<BoxCollider2D>().size * transform.lossyScale.x;
         string[] actionLayers = { "Interactable" };
@@ -87,15 +69,15 @@ public class Player : MonoBehaviour {
             }
         }
 
-        if (Input.GetKeyDown("1")) playerColor = PlayerColor.Black;
-        if (Input.GetKeyDown("2")) playerColor = PlayerColor.Blue;
-        if (Input.GetKeyDown("3")) playerColor = PlayerColor.Red;
+        if (Input.GetKeyDown("1")) playerSprite.playerColor = PlayerSprite.PlayerColor.Black;
+        if (Input.GetKeyDown("2")) playerSprite.playerColor = PlayerSprite.PlayerColor.Blue;
+        if (Input.GetKeyDown("3")) playerSprite.playerColor = PlayerSprite.PlayerColor.Red;
 
         if (Physics2D.OverlapBox(transform.position, size, 0, LayerMask.GetMask(new string[] { "Death" }))) {
             timeOutOfLine += Time.deltaTime;
             if (timeOutOfLine > timeUntilCaught) {
                 frozen = true;
-                World.Instance.StartFade(true, 0);
+                World.Instance.StartFade(true, "");
             }
 
             GetComponentInChildren<ExclamationPoint>().SetStatus(true, timeOutOfLine / timeUntilCaught);
@@ -103,6 +85,11 @@ public class Player : MonoBehaviour {
         else {
             timeOutOfLine = 0;
             GetComponentInChildren<ExclamationPoint>().SetStatus(false, 0);
+        }
+
+        if (Input.GetKeyDown(KeyCode.R)) {
+            frozen = true;
+            World.Instance.StartFade(true, "");
         }
     }
 
