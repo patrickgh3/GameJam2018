@@ -10,11 +10,13 @@ public class Player : MonoBehaviour {
     private float timeOutOfLine = 0;
     private const float timeUntilCaught = 0.75f;
     public bool moving = false;
+    private GameObject gateObject;
 
     private PlayerSprite playerSprite;
     private ExclamationPoint exclamation;
 
     void Start() {
+        gateObject = GameObject.FindGameObjectWithTag("Finish");
         playerSprite = GetComponent<PlayerSprite>();
         exclamation = GetComponentInChildren<ExclamationPoint>();
 	}
@@ -171,6 +173,7 @@ public class Player : MonoBehaviour {
         {
             goalCollision.gameObject.GetComponent<Goal>().isOpen = false;
             Debug.Log("Won the level");
+            gateObject.GetComponent<Animator>().SetTrigger("gateOpen");
             Destroy(this.gameObject);
         }
     }
