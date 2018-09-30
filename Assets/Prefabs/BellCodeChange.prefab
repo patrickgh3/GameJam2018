@@ -64,8 +64,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f1aa9b3f6d6fa0d49aec5ec221a6f78c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  bellThreshhold: 0
-  bellTimer: 0
+  bellThreshhold: 3
+  bellStopThreshhold: 1
+  bellTimer: 0.25
+  BellAnimator: {fileID: 0}
 --- !u!212 &212658361019100844
 SpriteRenderer:
   m_ObjectHideFlags: 1

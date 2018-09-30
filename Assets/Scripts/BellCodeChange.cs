@@ -4,8 +4,11 @@ using UnityEngine;
 
 public class BellCodeChange : MonoBehaviour {
 
+    public static bool bellActive;
     public float bellThreshhold;
+    public float bellStopThreshhold;
     public float bellTimer;
+    public Animator BellAnimator;
     private World world;
     // Use this for initialization
     void Start()
@@ -22,17 +25,31 @@ public class BellCodeChange : MonoBehaviour {
     void handleBell()
     {
         bellTimer += Time.deltaTime;
-        if (bellTimer > bellThreshhold)
+        if (bellActive)
         {
-            world.PlaySound(World.Clip.Bell);
-            bellTimer = 0;
-            foreach(Inspector inspector in FindObjectsOfType<Inspector>())
+            if (bellTimer > bellStopThreshhold)
             {
-                for(int i = 0; i < inspector.symbolCycle.Length; i++)
+                if (BellAnimator != null) BellAnimator.SetTrigger("BellStop");
+                bellTimer = 0;
+                bellActive = false;
+            }
+        }
+        else
+        {
+            if (bellTimer > bellThreshhold)
+            {
+                world.PlaySound(World.Clip.Bell);
+                bellTimer = 0;
+                bellActive = true;
+                if (BellAnimator != null) BellAnimator.SetTrigger("BellTrigger");
+                foreach (Inspector inspector in FindObjectsOfType<Inspector>())
                 {
-                    inspector.symbolCycle[i] = (inspector.symbolCycle[i] + 2) % 4;
+                    for (int i = 0; i < inspector.symbolCycle.Length; i++)
+                    {
+                        inspector.symbolCycle[i] = (inspector.symbolCycle[i] + 2) % 4;
+                    }
+                    inspector.Revalidate();
                 }
-                inspector.Revalidate();
             }
         }
     }
