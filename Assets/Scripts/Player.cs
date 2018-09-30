@@ -63,9 +63,15 @@ public class Player : MonoBehaviour {
             Vector2 size = GetComponent<BoxCollider2D>().size * transform.lossyScale.x;
             string[] actionLayers = { "Interactable" };
             Collider2D actionCollision = Physics2D.OverlapBox(transform.position, size, 0, LayerMask.GetMask(actionLayers));
-            if (actionCollision)
+            if (actionCollision && actionCollision.GetComponent<SpeechPad>())
             {
                 currentSpeechPad = actionCollision.GetComponent<SpeechPad>();
+            }
+            //for gate open (Interactable, but doesn't have a speech pad)
+            else if(actionCollision)
+            {
+                GameObject.Find("Goal").GetComponent<Goal>().isOpen = true;
+                currentSpeechPad = null;
             }
             else
             {
