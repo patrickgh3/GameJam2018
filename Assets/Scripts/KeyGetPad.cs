@@ -51,16 +51,17 @@ public class KeyGetPad : SpeechPad
     {
         if (attempt == KeyCorrect)
         {
-            if (caller.GetComponent<Player>() != null)
-            {
-                caller.GetComponent<Player>().giveKey();
-            }
             if (caller.GetComponent<NPC>() != null)
             {
                 caller.GetComponent<NPC>().giveKey();
             }
+            if (caller.GetComponent<Player>())
+            {
+                caller.GetComponent<Player>().giveKey();
+            }
+
         }
-        else if(caller.GetComponent<Player>() != null)
+        else if(caller.GetComponent<Player>())
         {
             caller.GetComponent<Player>().die();
         }

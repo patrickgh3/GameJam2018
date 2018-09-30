@@ -25,7 +25,7 @@ public class NPC : MonoBehaviour {
     public float speed = 300f;
     private bool sacrificed = false;
 
-    public bool hasKey;
+    private bool hasKey;
 
     // Use this for initialization
     protected void Start () {
@@ -178,7 +178,7 @@ public class NPC : MonoBehaviour {
             }
         }
         //placeholder for gate opener
-        else if(actionCollision)
+        else if(actionCollision && actionCollision.name == "GateOpen")
         {
             GameObject.Find("Goal").GetComponent<Goal>().isOpen = true;
         }
