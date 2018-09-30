@@ -36,7 +36,7 @@ public class Player : MonoBehaviour {
             if (despawnCollision)
             {
                 gateObject.GetComponent<Animator>().SetTrigger("gateClose");
-                World.Instance.StartFade(false, SceneManager.GetSceneByBuildIndex(SceneManager.GetActiveScene().buildIndex + 1).name);
+                World.Instance.LoadNextLevel();
             }
         }
         else

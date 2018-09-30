@@ -83,7 +83,7 @@ public class World : MonoBehaviour {
         if (Input.GetKeyDown(KeyCode.PageUp) && curScene < numScenes - 1) {
             SceneManager.LoadScene(curScene + 1);
         }
-        else if (Input.GetKeyDown(KeyCode.PageUp) && curScene > 0) {
+        else if (Input.GetKeyDown(KeyCode.PageDown) && curScene > 0) {
             SceneManager.LoadScene(curScene - 1);
         }
     }
@@ -107,6 +107,14 @@ public class World : MonoBehaviour {
             toScene = scene;
             startMusicNextScene = true;
         }
+    }
+
+    public void LoadNextLevel()
+    {
+        int curScene = SceneManager.GetActiveScene().buildIndex;
+        fadeState = FadeState.ToBlack;
+        fadeTime = 0;
+        SceneManager.LoadScene(curScene + 1);
     }
 
     public void Freeze() {
