@@ -130,10 +130,11 @@ public class Player : MonoBehaviour
                 }
             }
 
+            /*
             if (Input.GetKeyDown("1")) playerSprite.playerColor = PlayerSprite.PlayerColor.Black;
             if (Input.GetKeyDown("2")) playerSprite.playerColor = PlayerSprite.PlayerColor.Blue;
             if (Input.GetKeyDown("3")) playerSprite.playerColor = PlayerSprite.PlayerColor.Red;
-
+            */
 
             if (Physics2D.OverlapBox(transform.position, size, 0, LayerMask.GetMask(new string[] { "Death" })))
             {

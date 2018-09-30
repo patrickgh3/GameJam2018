@@ -255,7 +255,7 @@ Prefab:
     m_Modifications:
     - target: {fileID: 4521407880711094, guid: 54c4cd9452c4ca64ca0a4c4a06275faa, type: 2}
       propertyPath: m_LocalPosition.x
-      value: 1.83
+      value: 1.863
       objectReference: {fileID: 0}
     - target: {fileID: 4521407880711094, guid: 54c4cd9452c4ca64ca0a4c4a06275faa, type: 2}
       propertyPath: m_LocalPosition.y
@@ -287,7 +287,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 4521407880711094, guid: 54c4cd9452c4ca64ca0a4c4a06275faa, type: 2}
       propertyPath: m_LocalScale.x
-      value: 1.0587305
+      value: 0.88666797
       objectReference: {fileID: 0}
     - target: {fileID: 4521407880711094, guid: 54c4cd9452c4ca64ca0a4c4a06275faa, type: 2}
       propertyPath: m_LocalScale.y
@@ -357,7 +357,7 @@ Camera:
   far clip plane: 1000
   field of view: 60
   orthographic: 1
-  orthographic size: 990.609
+  orthographic size: 1050.4053
   m_Depth: -1
   m_CullingMask:
     serializedVersion: 2
@@ -379,7 +379,7 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 50720787}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -128, y: -488, z: -10}
+  m_LocalPosition: {x: -347, y: -488, z: -10}
   m_LocalScale: {x: 2.1688804e+9, y: 4.0037724e+9, z: 2.6693926e+9}
   m_Children: []
   m_Father: {fileID: 0}
@@ -2705,7 +2705,7 @@ Prefab:
     m_Modifications:
     - target: {fileID: 4521407880711094, guid: 54c4cd9452c4ca64ca0a4c4a06275faa, type: 2}
       propertyPath: m_LocalPosition.x
-      value: 5.702
+      value: 5.421
       objectReference: {fileID: 0}
     - target: {fileID: 4521407880711094, guid: 54c4cd9452c4ca64ca0a4c4a06275faa, type: 2}
       propertyPath: m_LocalPosition.y
@@ -2737,7 +2737,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 4521407880711094, guid: 54c4cd9452c4ca64ca0a4c4a06275faa, type: 2}
       propertyPath: m_LocalScale.x
-      value: 1.987491
+      value: 1.9452809
       objectReference: {fileID: 0}
     - target: {fileID: 4521407880711094, guid: 54c4cd9452c4ca64ca0a4c4a06275faa, type: 2}
       propertyPath: m_LocalScale.y
