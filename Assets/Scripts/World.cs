@@ -74,7 +74,7 @@ public class World : MonoBehaviour {
 
         // Escape to return to title
         if (Input.GetKeyDown(KeyCode.Escape) && fadeState == FadeState.Idle) {
-            StartFade(false, "Title");
+            StartFade(false, "Title", 0);
         }
 
         // Page up and down to switch scenes
@@ -97,10 +97,9 @@ public class World : MonoBehaviour {
         Graphics.DrawTexture(Camera.main.pixelRect, fullWhiteTexture, new Rect(0, 0, 1, 1), 0, 0, 0, 0, new Color(0, 0, 0, alpha * 0.5f));
     }
 
-    public void StartFade(bool restart, string scene, bool pause = false) {
+    public void StartFade(bool restart, string scene, float pauseTime) {
         fadeState = FadeState.ToBlack;
-        fadeTime = 0;
-        if (pause) fadeTime = -0.75f;
+        fadeTime = -pauseTime;
 
         if (restart) toScene = SceneManager.GetActiveScene().name;
         else {
@@ -122,7 +121,7 @@ public class World : MonoBehaviour {
         player.GetComponent<PlayerSprite>().Animate(Vector2.zero);
         player.frozen = true;
 
-        StartFade(true, "", true);
+        StartFade(true, "", 0.75f);
 
         /*foreach (NPC npc in FindObjectsOfType<NPC>()) {
             npc.speed = 0;
