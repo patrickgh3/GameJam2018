@@ -17,7 +17,6 @@ public class Title : MonoBehaviour {
 	void Update () {
 	    if (Input.anyKeyDown && !started) {
             World.Instance.StartFade(false, World.Instance.GetNextScene(), 0);
-            World.Instance.EnableMusic(true);
             started = true;
         }
 	}

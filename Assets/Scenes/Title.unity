@@ -216,7 +216,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   startScene: {fileID: 102900000, guid: 557be8965b8f6eb45b0610aafa3927be, type: 3}
---- !u!1001 &1531829402
+--- !u!1001 &2093419359
 Prefab:
   m_ObjectHideFlags: 0
   serializedVersion: 2
@@ -255,20 +255,15 @@ Prefab:
       propertyPath: m_RootOrder
       value: 1
       objectReference: {fileID: 0}
-    - target: {fileID: 82413582354170784, guid: aff3fd3a53bd1ad46a0c02340e652f36,
+    - target: {fileID: 82468960443059998, guid: aff3fd3a53bd1ad46a0c02340e652f36,
         type: 2}
-      propertyPath: m_PlayOnAwake
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 82339185861160796, guid: aff3fd3a53bd1ad46a0c02340e652f36,
-        type: 2}
-      propertyPath: m_PlayOnAwake
-      value: 1
+      propertyPath: m_audioClip
+      value: 
       objectReference: {fileID: 0}
     - target: {fileID: 82413582354170784, guid: aff3fd3a53bd1ad46a0c02340e652f36,
         type: 2}
-      propertyPath: m_Volume
-      value: 0.549
+      propertyPath: m_audioClip
+      value: 
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: aff3fd3a53bd1ad46a0c02340e652f36, type: 2}

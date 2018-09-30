@@ -7,8 +7,7 @@ public class World : MonoBehaviour {
     [SerializeField] private Texture fullWhiteTexture;
 
     private int fadeToSceneIndex;
-    private bool musicPlaying = false;
-    private bool startMusicNextScene = false;
+    private bool musicMuted = false;
     
     private float fadeTime = 0;
     private const float fadeLength = 0.5f;
@@ -23,7 +22,6 @@ public class World : MonoBehaviour {
 
     private AudioSource ambiance;
     private AudioSource music;
-    private AudioSource wind;
 
     private void Start() {
         if (Instance == null) {
@@ -31,32 +29,24 @@ public class World : MonoBehaviour {
             DontDestroyOnLoad(gameObject);
             ambiance = GameObject.Find("Ambiance").GetComponent<AudioSource>();
             music = GameObject.Find("Music").GetComponent<AudioSource>();
-            wind = GameObject.Find("Wind").GetComponent<AudioSource>();
+            UpdateMusic();
+            SceneManager.sceneLoaded += SceneLoadedEvent;
         }
         else {
             Destroy(this);
         }
     }
 
+    private void SceneLoadedEvent(Scene scene, LoadSceneMode mode) {
+        UpdateMusic();
+    }
+
     private void Update() {
         if (fadeState == FadeState.ToBlack) {
             fadeTime += Time.deltaTime;
-            if (fadeTime > fadeLength * 1.5f) {
+            if (fadeTime > fadeLength * 1.25f) {
                 fadeState = FadeState.FromBlack;
                 SceneManager.LoadScene(fadeToSceneIndex);
-
-                if (startMusicNextScene) {
-                    startMusicNextScene = false;
-                }
-
-                if (SceneManager.GetActiveScene().name == "Ritual") {
-                    EnableMusic(false);
-                    if (!wind.isPlaying) wind.Play();
-                }
-                else {
-                    EnableMusic(true);
-                    if (wind.isPlaying) wind.Stop();
-                }
             }
         }
         else if (fadeState == FadeState.FromBlack) {
@@ -69,7 +59,8 @@ public class World : MonoBehaviour {
 
         // Ctrl-M to mute and unmute music
         if (Input.GetKeyDown(KeyCode.M) && (Input.GetKey(KeyCode.LeftControl) || Input.GetKey(KeyCode.LeftControl))) {
-            EnableMusic(!musicPlaying);
+            musicMuted = !musicMuted;
+            UpdateMusic();
         }
 
         if (fadeState == FadeState.Idle) {
@@ -108,10 +99,8 @@ public class World : MonoBehaviour {
         if (restart) {
             fadeToSceneIndex = SceneManager.GetActiveScene().buildIndex;
         }
-        else
-        {
+        else {
             fadeToSceneIndex = scene;
-            startMusicNextScene = true;
         }
     }
 
@@ -136,18 +125,6 @@ public class World : MonoBehaviour {
         }*/
     }
 
-    public void EnableMusic(bool enabled) {
-        if (!musicPlaying && enabled) {
-            music.Play();
-            if (!ambiance.isPlaying) ambiance.Play();
-        }
-        else if (!enabled) {
-            music.Stop();
-            ambiance.Stop();
-        }
-        musicPlaying = enabled;
-    }
-
     public enum Clip {
         Speech1,
         Speech2,
@@ -168,9 +145,6 @@ public class World : MonoBehaviour {
     public AudioClip Bell;
     public AudioClip Sacrifice;
 
-    public AudioClip drumsClip;
-    public AudioClip windClip;
-
     public void PlaySound(Clip clip) {
         AudioClip audioClip = null;
         float volume = 1;
@@ -185,5 +159,47 @@ public class World : MonoBehaviour {
             case Clip.Sacrifice: audioClip = Sacrifice; volume = 0.5f; break;
         }
         GetComponent<AudioSource>().PlayOneShot(audioClip, volume);
+    }
+
+    public AudioClip titleLoop;
+    public AudioClip ambientLoop;
+    public AudioClip drumLoop;
+    public AudioClip windLoop;
+
+    private void UpdateMusic() {
+        if (musicMuted) {
+            music.Stop();
+            ambiance.Stop();
+        }
+
+        if (SceneManager.GetActiveScene().name == "Title") {
+            if (music.clip != titleLoop) {
+                music.clip = titleLoop;
+                music.Play();
+            }
+            if (!music.isPlaying) music.Play();
+
+            ambiance.Stop();
+        }
+        else if (SceneManager.GetActiveScene().name == "Ritual") {
+            music.Stop();
+
+            if (ambiance.clip != windLoop) {
+                ambiance.clip = windLoop;
+                ambiance.Play();
+            }
+        }
+        else {
+            if (music.clip != drumLoop) {
+                music.clip = drumLoop;
+                music.Play();
+            }
+            if (!music.isPlaying) music.Play();
+
+            if (ambiance.clip != ambientLoop) {
+                ambiance.clip = ambientLoop;
+                ambiance.Play();
+            }
+        }
     }
 }

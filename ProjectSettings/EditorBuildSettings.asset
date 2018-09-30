@@ -29,6 +29,6 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/Levels/HARD_1.unity
     guid: 5ce1c8ce4b558384a9b8b69d1a3680fb
-  - enabled: 0
-    path: Assets/Scenes/BasicLine.unity
-    guid: 557be8965b8f6eb45b0610aafa3927be
+  - enabled: 1
+    path: Assets/Scenes/Ritual.unity
+    guid: ecf4f582dc2b17d4f8912076dfd7af26
