@@ -8,7 +8,7 @@ public class NPC : MonoBehaviour {
     int speechChoice = 0;
     //determines current direction for movement. Defined by directions enum
     public int direction = (int)Directions.RIGHT;
-    private Vector2[] directions = new Vector2[8];
+    protected Vector2[] directions = new Vector2[8];
     //when timer reaches this Threshhold, the NPC will move
     public float moveThreshold;
     //actions will be performed this many seconds before next move
@@ -20,25 +20,25 @@ public class NPC : MonoBehaviour {
     private string[] collisionLayers = { "Player", "NPC"};
     public float blocked = 0;
     private PlayerSprite playerSprite;
+    public float speed = 300f;
 
     public bool hasKey;
 
     // Use this for initialization
-    void Start () {
+    protected void Start () {
         populateDirections();
         playerSprite = GetComponent<PlayerSprite>();
     }
 	
 	// Update is called once per frame
-	void Update () {
-        moveSpeed = 300f * Time.deltaTime;
+	protected void Update () {
+        moveSpeed = speed * Time.deltaTime;
         if (GlobalBell.bellActive)
         {
             playerSprite.Animate(Vector2.zero);
         }
         else
         {
-            playerSprite = GetComponent<PlayerSprite>();
             checkMovement();
             checkDirection();
         }
@@ -98,7 +98,7 @@ public class NPC : MonoBehaviour {
         else
         {
             moveSpeed = 0;
-            Debug.Log("Blocked");
+            //Debug.Log("Blocked");
             blocked += Time.deltaTime;
         }
     }

@@ -90,8 +90,7 @@ public class Player : MonoBehaviour {
         if (Physics2D.OverlapBox(transform.position, size, 0, LayerMask.GetMask(new string[] { "Death" }))) {
             timeOutOfLine += Time.deltaTime;
             if (timeOutOfLine > timeUntilCaught) {
-                frozen = true;
-                World.Instance.StartFade(true, "");
+                World.Instance.Freeze();
             }
 
             float exValue = timeOutOfLine / timeUntilCaught;
@@ -106,7 +105,7 @@ public class Player : MonoBehaviour {
             timeOutOfLine += Time.deltaTime*100f;
             if (timeOutOfLine > timeUntilCaught)
             {
-                frozen = true;
+                World.Instance.Freeze();
                 World.Instance.StartFade(true, "");
             }
 
@@ -122,8 +121,7 @@ public class Player : MonoBehaviour {
         }
 
         if (Input.GetKeyDown(KeyCode.R)) {
-            frozen = true;
-            World.Instance.StartFade(true, "");
+            World.Instance.Freeze();
         }
 
         goalCheck();
