@@ -52,8 +52,9 @@ public class NPC : MonoBehaviour {
         }
         else
         {
-            moveSpeed = speed * Time.deltaTime;
-            move(moveSpeed * directions[(int)Directions.UP]);
+            float moveSpeed = 300f * Time.deltaTime;
+            Vector3 toMove = new Vector3(Mathf.Round((moveSpeed * Vector3.up).x), Mathf.Round((moveSpeed * Vector3.up).y));
+            gameObject.transform.position += toMove;
             string[] despawnLayers = { "Despawn" };
             Vector2 size = GetComponent<BoxCollider2D>().size * transform.lossyScale.x;
             Collider2D despawnCollision = Physics2D.OverlapBox(transform.position, size, 0, LayerMask.GetMask(despawnLayers));
