@@ -118,6 +118,11 @@ public class Player : MonoBehaviour {
                 if (timeOutOfLine == 0) {
                     World.Instance.PlaySound(World.Clip.Exclamation);
                 }
+                timeOutOfLine += Time.deltaTime;
+                if (timeOutOfLine > timeUntilCaught)
+                {
+                    World.Instance.Freeze();
+                }
                 float exValue = timeOutOfLine / timeUntilCaught;
                 foreach (Collider2D collider in Physics2D.OverlapCircleAll(transform.position, size.x * 7, LayerMask.GetMask(new string[] { "NPC" })))
                 {
@@ -129,8 +134,7 @@ public class Player : MonoBehaviour {
             else if (Physics2D.OverlapBox(transform.position, size, 0, LayerMask.GetMask(new string[] { "MoveDeath" })) && moving)
             {
                 exclamation.SetStatus(true, 1);
-                frozen = true;
-                World.Instance.StartFade(true, "");
+                World.Instance.Freeze();
             }       
             else
             {
