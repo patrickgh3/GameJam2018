@@ -57,9 +57,21 @@ public class World : MonoBehaviour {
 
     public void StartFade(bool restart, string scene) {
         fadeState = FadeState.ToBlack;
-        fadeTime = -0.5f;
+        fadeTime = -0.75f;
 
         if (restart) toScene = SceneManager.GetActiveScene().name;
         else toScene = scene;
+    }
+
+    public void Freeze() {
+        Player player = FindObjectOfType<Player>();
+        player.GetComponent<PlayerSprite>().Animate(Vector2.zero);
+        player.frozen = true;
+
+        StartFade(true, "");
+
+        /*foreach (NPC npc in FindObjectsOfType<NPC>()) {
+            npc.speed = 0;
+        }*/
     }
 }

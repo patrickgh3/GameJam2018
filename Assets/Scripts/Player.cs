@@ -22,8 +22,9 @@ public class Player : MonoBehaviour {
         playerSprite = GetComponent<PlayerSprite>();
         exclamation = GetComponentInChildren<ExclamationPoint>();
 	}
-	
-	void FixedUpdate() {
+
+    void FixedUpdate()
+    {
         if (lockMovement)
         {
             float moveSpeed = 300f * Time.deltaTime;
@@ -119,23 +120,29 @@ public class Player : MonoBehaviour {
                     World.Instance.StartFade(true, "");
                 }
 
-                float exValue = timeOutOfLine / timeUntilCaught;
-                foreach (Collider2D collider in Physics2D.OverlapCircleAll(transform.position, size.x * 7, LayerMask.GetMask(new string[] { "NPC" })))
+                if (Physics2D.OverlapBox(transform.position, size, 0, LayerMask.GetMask(new string[] { "Death" })))
                 {
-                    ExclamationPoint ex = collider.GetComponentInChildren<ExclamationPoint>();
-                    ex.SetStatus(true, exValue);
+                    timeOutOfLine += Time.deltaTime;
+                    if (timeOutOfLine > timeUntilCaught)
+                    {
+                        World.Instance.Freeze();
+                    }
+
+
+                    float exValue = timeOutOfLine / timeUntilCaught;
+                    foreach (Collider2D collider in Physics2D.OverlapCircleAll(transform.position, size.x * 7, LayerMask.GetMask(new string[] { "NPC" })))
+                    {
+                        ExclamationPoint ex = collider.GetComponentInChildren<ExclamationPoint>();
+                        ex.SetStatus(true, exValue);
+                    }
+                    exclamation.SetStatus(true, exValue);
                 }
-                exclamation.SetStatus(true, exValue);
-            }
-            else if (Physics2D.OverlapBox(transform.position, size, 0, LayerMask.GetMask(new string[] { "MoveDeath" })) && moving)
-            {
-                timeOutOfLine += Time.deltaTime * 100f;
-                if (timeOutOfLine > timeUntilCaught)
+                else if (Physics2D.OverlapBox(transform.position, size, 0, LayerMask.GetMask(new string[] { "MoveDeath" })) && moving)
                 {
-                    frozen = true;
+
+                    World.Instance.Freeze();
                     World.Instance.StartFade(true, "");
                 }
-
                 GetComponentInChildren<ExclamationPoint>().SetStatus(true, timeOutOfLine / timeUntilCaught);
             }
             else
@@ -157,6 +164,10 @@ public class Player : MonoBehaviour {
             }
 
             goalCheck();
+            if (Input.GetKeyDown(KeyCode.R))
+            {
+                World.Instance.Freeze();
+            }
         }
     }
 

@@ -9,7 +9,7 @@ using System;
  **/
 public class NPCPath: MonoBehaviour
 {
-    public int direction;
+    [HideInInspector] public int direction;
     public string directionString;
     // Use this for initialization
     void Start()

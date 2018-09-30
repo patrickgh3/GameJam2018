@@ -10,15 +10,15 @@ public class InspectorDetect : SpeechPad {
     }
 
     override public void Action0() {
-        if (caller.GetComponent<Player>() != null) inspector.PlayerSpeak(0);
+        inspector.Speak(0, caller.GetComponent<Player>() != null);
     }
     override public void Action1() {
-        if (caller.GetComponent<Player>() != null) inspector.PlayerSpeak(1);
+        inspector.Speak(1, caller.GetComponent<Player>() != null);
     }
     override public void Action2() {
-        if (caller.GetComponent<Player>() != null) inspector.PlayerSpeak(2);
+        inspector.Speak(2, caller.GetComponent<Player>() != null);
     }
     override public void Action3() {
-        if (caller.GetComponent<Player>() != null) inspector.PlayerSpeak(3);
+        inspector.Speak(3, caller.GetComponent<Player>() != null);
     }
 }

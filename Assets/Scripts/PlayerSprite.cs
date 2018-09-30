@@ -8,6 +8,7 @@ public class PlayerSprite : MonoBehaviour {
         Black,
         Blue,
         Red,
+        Inspector,
     }
     public PlayerColor playerColor = PlayerColor.Black;
 
@@ -16,6 +17,7 @@ public class PlayerSprite : MonoBehaviour {
             string clip = "BlackIdle";
             if (playerColor == PlayerColor.Blue) clip = "BlueIdle";
             if (playerColor == PlayerColor.Red) clip = "RedIdle";
+            if (playerColor == PlayerColor.Inspector) clip = "InspectorIdle";
             GetComponent<Animator>().Play(clip);
             GetComponent<SpriteRenderer>().flipX = false;
         }
@@ -23,6 +25,7 @@ public class PlayerSprite : MonoBehaviour {
             string clip = "BlackWalk";
             if (playerColor == PlayerColor.Blue) clip = "BlueWalk";
             if (playerColor == PlayerColor.Red) clip = "RedWalk";
+            if (playerColor == PlayerColor.Inspector) clip = "InspectorWalk";
             GetComponent<Animator>().Play(clip);
             GetComponent<SpriteRenderer>().flipX = (velocity.x < 0);
         }

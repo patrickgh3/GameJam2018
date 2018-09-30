@@ -1554,7 +1554,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 4549715027548750, guid: 88f8c8cd227c2be4b8a4bbee4ff501b4, type: 2}
       propertyPath: m_LocalPosition.y
-      value: 1311
+      value: 1365
       objectReference: {fileID: 0}
     - target: {fileID: 4549715027548750, guid: 88f8c8cd227c2be4b8a4bbee4ff501b4, type: 2}
       propertyPath: m_LocalPosition.z
@@ -1595,6 +1595,10 @@ Prefab:
     - target: {fileID: 1180815724580800, guid: 88f8c8cd227c2be4b8a4bbee4ff501b4, type: 2}
       propertyPath: m_Name
       value: Despawner
+      objectReference: {fileID: 0}
+    - target: {fileID: 1180815724580800, guid: 88f8c8cd227c2be4b8a4bbee4ff501b4, type: 2}
+      propertyPath: m_Layer
+      value: 16
       objectReference: {fileID: 0}
     m_RemovedComponents:
     - {fileID: 114104536504531100, guid: 88f8c8cd227c2be4b8a4bbee4ff501b4, type: 2}

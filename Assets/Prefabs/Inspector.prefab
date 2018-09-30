@@ -95,8 +95,9 @@ GameObject:
   - component: {fileID: 4958368594034756}
   - component: {fileID: 50139600738255748}
   - component: {fileID: 58426467333112334}
+  - component: {fileID: 114886051903601676}
   m_Layer: 12
-  m_Name: Circle
+  m_Name: Detect
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -127,7 +128,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1332874830028138}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 146, y: -397, z: 10.674227}
+  m_LocalPosition: {x: 37, y: -319, z: 10.674227}
   m_LocalScale: {x: 100, y: 100, z: 1}
   m_Children:
   - {fileID: 4830122981979416}
@@ -212,7 +213,7 @@ Rigidbody2D:
   m_GameObject: {fileID: 1836990337437056}
   m_BodyType: 1
   m_Simulated: 1
-  m_UseFullKinematicContacts: 0
+  m_UseFullKinematicContacts: 1
   m_UseAutoMass: 0
   m_Mass: 1
   m_LinearDrag: 0
@@ -322,7 +323,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1c26f613dcf870c4ca6d8f70886ae7bf, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  direction: 3
+  moveThreshold: 2
+  actionTimeNecessary: 1
+  spriteSize: 50
+  blocked: 0
+  speed: 150
+  hasKey: 0
   radius: 200
+  symbolCycle: 0100000002000000
 --- !u!114 &114345945661147112
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -377,6 +386,19 @@ MonoBehaviour:
   - {fileID: 21300018, guid: a839932bb50833249892b6de982f0b7e, type: 3}
   - {fileID: 21300020, guid: a839932bb50833249892b6de982f0b7e, type: 3}
   - {fileID: 21300022, guid: a839932bb50833249892b6de982f0b7e, type: 3}
+--- !u!114 &114886051903601676
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1836990337437056}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fb29591a1a0815f4eb1b2fa6893a2d0a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  validActions: 
+  caller: {fileID: 0}
 --- !u!114 &114906073954929504
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -416,7 +438,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8854ecc04ff8d1f4e98a002d3dd20a2a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  playerColor: 0
+  playerColor: 3
 --- !u!212 &212012675258582622
 SpriteRenderer:
   m_ObjectHideFlags: 1
@@ -495,7 +517,7 @@ SpriteRenderer:
   m_SortingLayerID: -430264647
   m_SortingLayer: 2
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: 241c4dc1fdc8fd040843ae98e9cb0def, type: 3}
+  m_Sprite: {fileID: 21300000, guid: abfc7fde2cb719345a2759ce4d111e90, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
