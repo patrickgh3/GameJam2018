@@ -56,6 +56,14 @@ public class Inspector : NPC {
         }
     }
 
+    public void Revalidate()
+    {
+        correctSymbol = symbolCycle[cyclePos];
+        detect.validActions[0] = correctSymbol;
+    }
+
+
+
     // Copied from NPC... i'm sorry rick ord
     void populateDirections() {
         directions[(int)Directions.DOWN] = new Vector2(0, -1).normalized;
