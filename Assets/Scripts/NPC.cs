@@ -98,6 +98,7 @@ public class NPC : MonoBehaviour {
         }
         else
         {
+            moveSpeed = 0;
             Debug.Log("Blocked");
             blocked += Time.deltaTime;
         }
