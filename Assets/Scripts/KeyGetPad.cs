@@ -55,7 +55,7 @@ public class KeyGetPad : SpeechPad
             {
                 caller.GetComponent<NPC>().giveKey();
             }
-            else if (caller.GetComponent<Player>())
+            if (caller.GetComponent<Player>())
             {
                 caller.GetComponent<Player>().giveKey();
             }
