@@ -39,6 +39,8 @@ public class World : MonoBehaviour {
 
     private void SceneLoadedEvent(Scene scene, LoadSceneMode mode) {
         UpdateMusic();
+        BellStop.bellActive = false;
+        BellCodeChange.bellActive = false;
     }
 
     private void Update() {
