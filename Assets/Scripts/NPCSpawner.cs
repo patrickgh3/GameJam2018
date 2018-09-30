@@ -15,6 +15,7 @@ public class NPCSpawner : MonoBehaviour {
     public float spriteSize;
     public GameObject NPCPrefab;
     private string[] collisionLayers = { "Player", "NPC" };
+    public int NumToSpawn = -1;
 
     // Use this for initialization
     void Start () {
@@ -25,7 +26,7 @@ public class NPCSpawner : MonoBehaviour {
 
     // Update is called once per frame
     void Update () {
-        checkSpawn();
+        if (NumToSpawn > 0 || NumToSpawn == -1) checkSpawn();
         spawnTimer += Time.deltaTime;
 	}
 
@@ -46,6 +47,7 @@ public class NPCSpawner : MonoBehaviour {
             {
                 blocked = 0;
                 GameObject nextNPC = Instantiate(NPCPrefab, transform.position, Quaternion.identity);
+                if (NumToSpawn != -1) NumToSpawn--;
                 nextNPC.GetComponent<NPC>().direction = direction;
             }
             else
