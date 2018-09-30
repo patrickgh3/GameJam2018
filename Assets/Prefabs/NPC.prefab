@@ -25,6 +25,7 @@ GameObject:
   - component: {fileID: 50827867158088608}
   - component: {fileID: 95990060814735444}
   - component: {fileID: 114723521111045964}
+  - component: {fileID: 114771882026339614}
   m_Layer: 10
   m_Name: NPC
   m_TagString: Untagged
@@ -108,8 +109,8 @@ Transform:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1095407032697956}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -1274.3674, y: 24.123383, z: 0}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: -985, y: 124, z: 10.674227}
   m_LocalScale: {x: 100, y: 100, z: 1}
   m_Children:
   - {fileID: 4830234980800608}
@@ -335,6 +336,18 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   aboveParent: 0
+--- !u!114 &114771882026339614
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1095407032697956}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8854ecc04ff8d1f4e98a002d3dd20a2a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  playerColor: 0
 --- !u!114 &114813360390585168
 MonoBehaviour:
   m_ObjectHideFlags: 1

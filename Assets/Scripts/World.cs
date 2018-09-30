@@ -6,7 +6,7 @@ using UnityEngine.SceneManagement;
 public class World : MonoBehaviour {
     [SerializeField] private Texture fullWhiteTexture;
 
-    private int toScene;
+    private string toScene;
 
     private float fadeTime = 0;
     private const float fadeLength = 0.5f;
@@ -55,11 +55,11 @@ public class World : MonoBehaviour {
         Graphics.DrawTexture(Camera.main.pixelRect, fullWhiteTexture, new Rect(0, 0, 1, 1), 0, 0, 0, 0, new Color(0, 0, 0, alpha * 0.5f));
     }
 
-    public void StartFade(bool restart, int scene) {
+    public void StartFade(bool restart, string scene) {
         fadeState = FadeState.ToBlack;
         fadeTime = -0.2f;
 
-        if (restart) toScene = SceneManager.GetActiveScene().buildIndex;
+        if (restart) toScene = SceneManager.GetActiveScene().name;
         else toScene = scene;
     }
 }

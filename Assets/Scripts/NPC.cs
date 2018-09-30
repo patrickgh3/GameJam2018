@@ -23,6 +23,7 @@ public class NPC : MonoBehaviour {
     public Vector3 moveLocation;
     private string[] collisionLayers = { "Player", "NPC"};
     public int blocked = 0;
+    private PlayerSprite playerSprite;
 
     public bool hasKey;
 
@@ -32,10 +33,11 @@ public class NPC : MonoBehaviour {
         populateDirections();
         moveTimer = Random.Range(0, moveThreshold / 4);
     }
-
-    // Update is called once per frame
-    void Update () {
-		if (!testSpoken && Mathf.Floor(Time.time) % 5 == 2) {
+	
+	// Update is called once per frame
+	void Update () {
+        playerSprite = GetComponent<PlayerSprite>();
+        if (!testSpoken && Mathf.Floor(Time.time) % 5 == 2) {
             testSpoken = true;
             GetComponentInChildren<Speech>().Speak(0);
         }
@@ -53,6 +55,11 @@ public class NPC : MonoBehaviour {
             move(moveAmount * directions[direction]);
         }
         transform.position = Vector3.MoveTowards(transform.position, moveLocation, Time.deltaTime * moveSpeed);
+
+        Vector3 moveDelta = moveLocation - transform.position;
+        if (moveDelta.magnitude < 0.0001f) playerSprite.Animate(Vector2.zero);
+        else playerSprite.Animate(moveDelta);
+
         Vector2 size = GetComponent<BoxCollider2D>().size * transform.lossyScale.x;
         Collider2D playerCollision = Physics2D.OverlapBox(transform.position, size, 0, LayerMask.GetMask(collisionLayers));
         if (playerCollision)
