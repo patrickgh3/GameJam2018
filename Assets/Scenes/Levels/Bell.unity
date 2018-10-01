@@ -1797,11 +1797,11 @@ Prefab:
     m_Modifications:
     - target: {fileID: 4166614381994364, guid: 0afc178b4f7d2de498eeaf33340db480, type: 2}
       propertyPath: m_LocalPosition.x
-      value: -1581
+      value: -1577
       objectReference: {fileID: 0}
     - target: {fileID: 4166614381994364, guid: 0afc178b4f7d2de498eeaf33340db480, type: 2}
       propertyPath: m_LocalPosition.y
-      value: -1628
+      value: -1643
       objectReference: {fileID: 0}
     - target: {fileID: 4166614381994364, guid: 0afc178b4f7d2de498eeaf33340db480, type: 2}
       propertyPath: m_LocalPosition.z
@@ -1840,7 +1840,7 @@ Prefab:
         type: 2}
       propertyPath: NPCPrefab
       value: 
-      objectReference: {fileID: 1398882168041770, guid: a77f70aa624892c48ab19d882011b118,
+      objectReference: {fileID: 1095407032697956, guid: f98b52b055a258e4eb2d12f7dfdc779b,
         type: 2}
     - target: {fileID: 114763902028092956, guid: 0afc178b4f7d2de498eeaf33340db480,
         type: 2}
@@ -2012,7 +2012,7 @@ Prefab:
         type: 2}
       propertyPath: NPCPrefab
       value: 
-      objectReference: {fileID: 1398882168041770, guid: a77f70aa624892c48ab19d882011b118,
+      objectReference: {fileID: 1095407032697956, guid: f98b52b055a258e4eb2d12f7dfdc779b,
         type: 2}
     - target: {fileID: 114763902028092956, guid: 0afc178b4f7d2de498eeaf33340db480,
         type: 2}
@@ -4227,11 +4227,11 @@ Prefab:
     m_Modifications:
     - target: {fileID: 4521407880711094, guid: 54c4cd9452c4ca64ca0a4c4a06275faa, type: 2}
       propertyPath: m_LocalPosition.x
-      value: -1588
+      value: -1577
       objectReference: {fileID: 0}
     - target: {fileID: 4521407880711094, guid: 54c4cd9452c4ca64ca0a4c4a06275faa, type: 2}
       propertyPath: m_LocalPosition.y
-      value: -1690
+      value: -1698
       objectReference: {fileID: 0}
     - target: {fileID: 4521407880711094, guid: 54c4cd9452c4ca64ca0a4c4a06275faa, type: 2}
       propertyPath: m_LocalPosition.z
@@ -11675,6 +11675,12 @@ Prefab:
       propertyPath: m_LocalScale.z
       value: 0.26695374
       objectReference: {fileID: 0}
+    - target: {fileID: 212797395995776324, guid: 3c2ac0582bc901d4a8ef23aae9967b97,
+        type: 2}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 21300000, guid: fa8dc91eec6145d4482229ec54fa72ab,
+        type: 3}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 3c2ac0582bc901d4a8ef23aae9967b97, type: 2}
   m_IsPrefabParent: 0
