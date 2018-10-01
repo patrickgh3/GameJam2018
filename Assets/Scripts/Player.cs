@@ -19,6 +19,7 @@ public class Player : MonoBehaviour
     private float walkSpeed;
     [SerializeField]
     private float runSpeed;
+    private bool startedFade = false;
 
     private PlayerSprite playerSprite;
     private ExclamationPoint exclamation;
@@ -46,13 +47,18 @@ public class Player : MonoBehaviour
             float moveSpeed = speed * Time.deltaTime;
             Vector3 toMove = new Vector3(Mathf.Round((moveSpeed * Vector3.up).x), Mathf.Round((moveSpeed * Vector3.up).y));
             gameObject.transform.position += toMove;
-            string[] despawnLayers = { "Despawn" };
-            Vector2 size = GetComponent<BoxCollider2D>().size * transform.lossyScale.x;
-            Collider2D despawnCollision = Physics2D.OverlapBox(transform.position, size, 0, LayerMask.GetMask(despawnLayers));
-            if (despawnCollision)
+
+            if (!startedFade)
             {
-                gateObject.GetComponent<Animator>().SetTrigger("gateClose");
-                World.Instance.StartFade(false, World.Instance.GetNextScene(), 0);
+                string[] despawnLayers = { "Despawn" };
+                Vector2 size = GetComponent<BoxCollider2D>().size * transform.lossyScale.x;
+                Collider2D despawnCollision = Physics2D.OverlapBox(transform.position, size, 0, LayerMask.GetMask(despawnLayers));
+                if (despawnCollision)
+                {
+                    gateObject.GetComponent<Animator>().SetTrigger("gateClose");
+                    World.Instance.StartFade(false, World.Instance.GetNextScene(), 0);
+                    startedFade = true;
+                }
             }
         }
         else
