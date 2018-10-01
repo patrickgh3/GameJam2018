@@ -146,42 +146,47 @@ public class NPC : MonoBehaviour {
         {
             direction = pathCollision.GetComponent<NPCPath>().direction;
         }
-        string[] actionLayers = { "Interactable" };
-        Collider2D actionCollision = Physics2D.OverlapBox(transform.position, size, 0, LayerMask.GetMask(actionLayers));
-        if (actionCollision && actionCollision.GetComponent<SpeechPad>() && actionCollision.GetComponent<SpeechPad>() != currentSpeechPad)
+
+        if (this.GetComponent<Inspector>() == null)
         {
-            actionCheckTime = actionTimeNecessary;
-            playerSprite.Animate(Vector2.zero);
-            int[] validActions = actionCollision.GetComponent<SpeechPad>().validActions;
-            speechChoice = validActions[(int)Random.Range(0, validActions.Length)];
-            currentSpeechPad = actionCollision.GetComponent<SpeechPad>();
-            GetComponentInChildren<Speech>().Speak(speechChoice);
-            if (speechChoice == 0)
+            string[] actionLayers = { "Interactable" };
+            Collider2D actionCollision = Physics2D.OverlapBox(transform.position, size, 0, LayerMask.GetMask(actionLayers));
+            if (actionCollision && actionCollision.GetComponent<SpeechPad>() && actionCollision.GetComponent<SpeechPad>() != currentSpeechPad)
             {
-                currentSpeechPad.caller = this.gameObject;
-                currentSpeechPad.Action0();
+                actionCheckTime = actionTimeNecessary;
+                playerSprite.Animate(Vector2.zero);
+                int[] validActions = actionCollision.GetComponent<SpeechPad>().validActions;
+                speechChoice = validActions[(int)Random.Range(0, validActions.Length)];
+                currentSpeechPad = actionCollision.GetComponent<SpeechPad>();
+                GetComponentInChildren<Speech>().Speak(speechChoice);
+                if (speechChoice == 0)
+                {
+                    currentSpeechPad.caller = this.gameObject;
+                    currentSpeechPad.Action0();
+                }
+                if (speechChoice == 1)
+                {
+                    currentSpeechPad.caller = this.gameObject;
+                    currentSpeechPad.Action1();
+                }
+                if (speechChoice == 2)
+                {
+                    currentSpeechPad.caller = this.gameObject;
+                    currentSpeechPad.Action2();
+                }
+                if (speechChoice == 3)
+                {
+                    currentSpeechPad.caller = this.gameObject;
+                    currentSpeechPad.Action3();
+                }
             }
-            if (speechChoice == 1)
+            //placeholder for gate opener
+            else if (actionCollision && actionCollision.name == "GateOpen")
             {
-                currentSpeechPad.caller = this.gameObject;
-                currentSpeechPad.Action1();
-            }
-            if (speechChoice == 2)
-            {
-                currentSpeechPad.caller = this.gameObject;
-                currentSpeechPad.Action2();
-            }
-            if (speechChoice == 3)
-            {
-                currentSpeechPad.caller = this.gameObject;
-                currentSpeechPad.Action3();
+                GameObject.Find("Goal").GetComponent<Goal>().isOpen = true;
             }
         }
-        //placeholder for gate opener
-        else if(actionCollision && actionCollision.name == "GateOpen")
-        {
-            GameObject.Find("Goal").GetComponent<Goal>().isOpen = true;
-        }
+
         string[] goalLayers = { "Goal" };
         Collider2D goalCollision = Physics2D.OverlapBox(transform.position, size, 0, LayerMask.GetMask(goalLayers));
         if (goalCollision && (goalCollision.GetComponent<Goal>().isOpen || hasKey && goalCollision.GetComponent<Goal>().keyDoor))
