@@ -46,6 +46,7 @@ public class NPCSpawner : MonoBehaviour {
             {
                 blocked = 0;
                 GameObject nextNPC = Instantiate(NPCPrefab, transform.position, Quaternion.identity);
+                //nextNPC.GetComponent<YDepthOrder>().Update();
                 if (NumToSpawn != -1) NumToSpawn--;
                 nextNPC.GetComponent<NPC>().direction = direction;
             }

@@ -10,7 +10,7 @@ public class YDepthOrder : MonoBehaviour {
         sprite = GetComponent<SpriteRenderer>();
     }
 
-    void Update() {
+    public void Update() {
         if (aboveParent) {
             sprite.sortingOrder = -(int)Mathf.Round(transform.parent.position.y) + 1;
         }
