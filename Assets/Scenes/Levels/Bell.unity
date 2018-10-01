@@ -493,6 +493,11 @@ Prefab:
       propertyPath: moveDeathObject
       value: 
       objectReference: {fileID: 1991330087}
+    - target: {fileID: 114614444237759084, guid: aaa09abbdab997f478a422d45b074268,
+        type: 2}
+      propertyPath: bellStopThreshhold
+      value: 1.5
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: aaa09abbdab997f478a422d45b074268, type: 2}
   m_IsPrefabParent: 0
