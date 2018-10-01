@@ -3497,7 +3497,7 @@ Transform:
   m_LocalScale: {x: 73.75827, y: 73.75827, z: 0}
   m_Children: []
   m_Father: {fileID: 1902406859}
-  m_RootOrder: 32
+  m_RootOrder: 27
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!61 &828671943
 BoxCollider2D:
@@ -4190,7 +4190,7 @@ Prefab:
     - target: {fileID: 114321792366262582, guid: f9f9d0acb1df99e449783e04cc558c8a,
         type: 2}
       propertyPath: symbolCycle.Array.data[1]
-      value: 3
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 1332874830028138, guid: f9f9d0acb1df99e449783e04cc558c8a, type: 2}
       propertyPath: m_Name
@@ -4209,7 +4209,7 @@ Prefab:
     - target: {fileID: 114321792366262582, guid: f9f9d0acb1df99e449783e04cc558c8a,
         type: 2}
       propertyPath: symbolCycle.Array.data[2]
-      value: 1
+      value: 2
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: f9f9d0acb1df99e449783e04cc558c8a, type: 2}
@@ -6558,7 +6558,7 @@ Transform:
   m_LocalScale: {x: 73.75827, y: 73.75827, z: 0}
   m_Children: []
   m_Father: {fileID: 1902406859}
-  m_RootOrder: 27
+  m_RootOrder: 26
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!61 &1626495197
 BoxCollider2D:
@@ -8043,7 +8043,7 @@ Transform:
   m_LocalScale: {x: 73.75827, y: 73.75827, z: 0}
   m_Children: []
   m_Father: {fileID: 1902406859}
-  m_RootOrder: 38
+  m_RootOrder: 33
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!61 &1900356625
 BoxCollider2D:
@@ -8197,19 +8197,19 @@ Transform:
   - {fileID: 352066501}
   - {fileID: 146402424}
   - {fileID: 1190612004}
-  - {fileID: 1013383255}
   - {fileID: 1626495196}
+  - {fileID: 828671942}
+  - {fileID: 1013383255}
   - {fileID: 380492244}
   - {fileID: 315145501}
   - {fileID: 1828441059}
   - {fileID: 1116946654}
-  - {fileID: 828671942}
+  - {fileID: 1900356624}
   - {fileID: 683331316}
   - {fileID: 2087339413}
   - {fileID: 663831771}
   - {fileID: 305838552}
   - {fileID: 1208193271}
-  - {fileID: 1900356624}
   - {fileID: 449326358}
   - {fileID: 240613672}
   - {fileID: 418927463}
