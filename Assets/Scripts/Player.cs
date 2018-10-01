@@ -23,6 +23,7 @@ public class Player : MonoBehaviour
 
     private PlayerSprite playerSprite;
     private ExclamationPoint exclamation;
+    public AudioSource walkSound;
 
     void Start()
     {
@@ -30,6 +31,7 @@ public class Player : MonoBehaviour
         gateObject = GameObject.FindGameObjectWithTag("Finish");
         playerSprite = GetComponent<PlayerSprite>();
         exclamation = GetComponentInChildren<ExclamationPoint>();
+        walkSound = GetComponent<AudioSource>();
     }
 
     void FixedUpdate()
@@ -81,6 +83,14 @@ public class Player : MonoBehaviour
             Move(gameObject, toMove);
 
             GetComponent<PlayerSprite>().Animate(toMove);
+
+            if (toMove.x == 0 && toMove.y == 0) {
+                if (walkSound.isPlaying) walkSound.Stop();
+            }
+            else
+            {
+                if (!walkSound.isPlaying) walkSound.Play();
+            }
 
             Vector2 size = GetComponent<BoxCollider2D>().size * transform.lossyScale.x;
             string[] actionLayers = { "Interactable" };
@@ -185,6 +195,7 @@ public class Player : MonoBehaviour
             if (Input.GetKeyDown(KeyCode.R))
             {
                 frozen = true;
+                walkSound.Stop();
                 World.Instance.StartFade(true, 0, 0);
             }
 
@@ -194,6 +205,7 @@ public class Player : MonoBehaviour
                 gameObject.AddComponent<Sacrifice>();
                 frozen = true;
                 playerSprite.Animate(Vector2.zero);
+                walkSound.Stop();
                 World.Instance.PlaySound(World.Clip.Sacrifice);
                 World.Instance.StartFade(false, World.Instance.GetTitleScene(), 6.0f);
             }

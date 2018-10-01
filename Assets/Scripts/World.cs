@@ -119,6 +119,7 @@ public class World : MonoBehaviour {
         Player player = FindObjectOfType<Player>();
         player.GetComponent<PlayerSprite>().Animate(Vector2.zero);
         player.frozen = true;
+        player.walkSound.Stop();
 
         StartFade(true, 0, 0.75f);
 
